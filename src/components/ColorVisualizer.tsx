@@ -84,8 +84,23 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
   const [status, setStatus] = useState<"idle" | "preparing" | "working">("idle");
   const [error, setError] = useState<string>();
   const [mounted, setMounted] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+    const onFullscreenChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", onFullscreenChange);
+    return () => document.removeEventListener("fullscreenchange", onFullscreenChange);
+  }, []);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      containerRef.current?.requestFullscreen?.().catch(console.error);
+    } else {
+      document.exitFullscreen?.().catch(console.error);
+    }
+  };
 
   const selected = useMemo(
     () => asianPaintsShades.find((shade) => shade.code === (mode === "photo" ? photoShadeCode : wallShadeCodes[activeWall])) ?? asianPaintsShades[0],
