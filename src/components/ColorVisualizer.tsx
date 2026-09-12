@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { CameraIcon } from "@/components/Icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Maximize, Minimize } from "lucide-react";
 import defaultRoom from "@/assets/room-visualizer-default.jpg";
 import {
   asianPaintsFamilies,
@@ -164,9 +165,9 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
             Pick any Asian Paints shade below. Try it instantly in our room, or add a photo of yours.
           </p>
 
-          <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1.3fr)_minmax(20rem,0.7fr)] lg:items-start">
-            <div className="min-w-0">
-              <div className="mb-3 grid min-w-0 grid-cols-2 gap-1 rounded-lg bg-muted p-1" aria-label="Choose room">
+          <div ref={containerRef} className={`transition-colors duration-300 ${isFullscreen ? "fixed inset-0 z-50 bg-background block" : "mt-5 grid gap-5 lg:grid-cols-[minmax(0,1.3fr)_minmax(20rem,0.7fr)] lg:items-start"}`}>
+            <div className={`min-w-0 flex flex-col ${isFullscreen ? "absolute inset-0 z-0" : ""}`}>
+              <div className={`mb-3 grid min-w-0 grid-cols-2 gap-1 rounded-lg bg-muted p-1 ${isFullscreen ? "hidden" : ""}`} aria-label="Choose room">
                 <Button
                   type="button"
                   variant={mode === "default" ? "default" : "ghost"}
@@ -188,11 +189,21 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
                 </Button>
               </div>
 
-              <div className="relative isolate overflow-hidden rounded-lg border border-border bg-sand shadow-soft">
+              <div className={`relative isolate overflow-hidden bg-sand shadow-soft ${isFullscreen ? "flex-1 rounded-none border-none" : "rounded-lg border border-border"}`}>
+                <Button 
+                  type="button"
+                  variant="secondary" 
+                  size="icon" 
+                  className="absolute top-2 left-2 z-10 bg-background/80 backdrop-blur-sm shadow-sm hover:bg-background/90"
+                  onClick={toggleFullscreen}
+                  title="Toggle full screen"
+                >
+                  {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
+                </Button>
                 {mode === "default" ? (
                   mounted ? (
                     <Suspense fallback={<img src={defaultRoom} alt="Loading furnished 3D room" width={1200} height={912} className="aspect-[4/3] w-full object-cover" />}>
-                      <Room3D colors={roomColors} selectedWall={activeWall} onSelectWall={setActiveWall} />
+                      <Room3D colors={roomColors} selectedWall={activeWall} onSelectWall={setActiveWall} className={isFullscreen ? "w-full h-full bg-sand touch-none cursor-move" : undefined} />
                     </Suspense>
                   ) : (
                     <img src={defaultRoom} alt="Furnished room color preview" width={1200} height={912} className="aspect-[4/3] w-full object-cover" />
@@ -227,7 +238,7 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
               </div>
 
               {mode === "default" ? (
-                <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4" aria-label="Choose a wall to paint">
+                <div className={`mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4 ${isFullscreen ? "hidden" : ""}`} aria-label="Choose a wall to paint">
                   {roomWalls.map((wall) => {
                     const shade = asianPaintsShades.find((item) => item.code === wallShadeCodes[wall.id]);
                     return (
@@ -250,7 +261,7 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
                 </div>
               ) : null}
 
-              <div className="mt-3 grid min-w-0 grid-cols-2 gap-2">
+              <div className={`mt-3 grid min-w-0 grid-cols-2 gap-2 ${isFullscreen ? "hidden" : ""}`}>
                 <label className="btn btn-outline min-w-0 cursor-pointer px-2 text-center text-xs sm:text-sm">
                   <CameraIcon className="h-4 w-4 shrink-0" />
                   {photo ? "Change photo" : "Add my photo"}
@@ -272,13 +283,38 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
                   {status === "working" ? "Making…" : status === "preparing" ? "Opening…" : "Preview my room"}
                 </Button>
               </div>
-              {error ? <p className="mt-3 text-sm font-semibold text-destructive">{error}</p> : null}
-              <p className="mt-3 text-xs text-muted-foreground">
+              {error && !isFullscreen ? <p className="mt-3 text-sm font-semibold text-destructive">{error}</p> : null}
+              <p className={`mt-3 text-xs text-muted-foreground ${isFullscreen ? "hidden" : ""}`}>
                 Screen colors and AI previews are approximate. Check a physical shade card before buying.
               </p>
             </div>
 
-            <div className="min-w-0 rounded-lg border border-border bg-card p-3 md:p-4">
+            <div className={`min-w-0 rounded-lg border-border bg-card p-3 md:p-4 ${isFullscreen ? "absolute bottom-4 left-4 right-4 z-10 flex flex-col max-h-[50vh] border bg-background/90 backdrop-blur-lg shadow-2xl overflow-hidden" : "border"}`}>
+              
+              {/* Floating Wall Selector in Fullscreen */}
+              {isFullscreen && mode === "default" && (
+                <div className="mb-3 flex gap-2 overflow-x-auto pb-2 border-b border-border/50 shrink-0" aria-label="Choose a wall to paint">
+                  {roomWalls.map((wall) => {
+                    const shade = asianPaintsShades.find((item) => item.code === wallShadeCodes[wall.id]);
+                    return (
+                      <Button
+                        key={wall.id}
+                        type="button"
+                        variant={activeWall === wall.id ? "default" : "outline"}
+                        onClick={() => setActiveWall(wall.id)}
+                        aria-pressed={activeWall === wall.id}
+                        className="h-auto min-h-11 shrink-0 justify-start gap-2 px-2.5 py-2 text-left"
+                      >
+                        <span className="h-6 w-6 shrink-0 rounded-sm border border-border" style={{ backgroundColor: shade?.hex }} />
+                        <span className="min-w-0">
+                          <span className="block text-xs font-bold">{wall.label}</span>
+                          <span className="block truncate text-[10px] opacity-75">{shade?.name}</span>
+                        </span>
+                      </Button>
+                    );
+                  })}
+                </div>
+              )}
               <label>
                 <span className="mb-1.5 block text-sm font-bold">
                   {mode === "default" ? `Choose color for ${roomWalls.find((wall) => wall.id === activeWall)?.label.toLowerCase()}` : "Choose color for your photo"}
@@ -317,7 +353,8 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
                 {matches.length.toLocaleString("en-IN")} shades
               </p>
               {matches.length ? (
-                <div className="mt-3 grid max-h-[24rem] grid-cols-4 gap-2 overflow-y-auto pr-1 sm:grid-cols-6 lg:grid-cols-4" aria-label="Choose an Asian Paints shade">
+                <div className={`mt-3 ${isFullscreen ? "flex-1 min-h-0 overflow-y-auto pr-1" : "max-h-[24rem] overflow-y-auto pr-1"}`}>
+                <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 lg:grid-cols-4" aria-label="Choose an Asian Paints shade">
                   {matches.slice(0, visibleCount).map((shade) => {
                     const active = shade.code === selected?.code;
                     return (
@@ -335,6 +372,7 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
                       </button>
                     );
                   })}
+                </div>
                 </div>
               ) : (
                 <p className="mt-3 rounded-md bg-muted p-4 text-sm text-muted-foreground">No matching shade found.</p>
