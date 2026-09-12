@@ -1,18 +1,10 @@
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
-import { Canvas, useFrame, useThree, type ThreeEvent } from "@react-three/fiber";
-import { Environment, Lightformer, useGLTF } from "@react-three/drei";
+import { Suspense, useMemo } from "react";
+import { Canvas, type ThreeEvent } from "@react-three/fiber";
+import { Environment, Lightformer, useGLTF, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
-import { Button } from "@/components/ui/button";
 
 export type RoomWall = "front" | "left" | "right" | "back";
 export type RoomWallColors = Record<RoomWall, string>;
-
-type MoveState = { forward: number; right: number };
-
-const START_POSITION = new THREE.Vector3(0, 1.65, 4);
-const FORWARD = new THREE.Vector3();
-const RIGHT = new THREE.Vector3();
-const MOVE = new THREE.Vector3();
 
 function FurnitureModel({
   path,
@@ -38,94 +30,6 @@ function FurnitureModel({
   }, [scene]);
 
   return <primitive object={clone} position={position} rotation={rotation} scale={scale} />;
-}
-
-function WalkCamera({ movement, resetSignal }: { movement: React.RefObject<MoveState>; resetSignal: number }) {
-  const { camera, gl } = useThree();
-  const yaw = useRef(0);
-  const pitch = useRef(-0.04);
-  const dragging = useRef(false);
-  const pointer = useRef({ x: 0, y: 0 });
-  const keys = useRef(new Set<string>());
-
-  useEffect(() => {
-    camera.position.copy(START_POSITION);
-    camera.rotation.order = "YXZ";
-    camera.rotation.set(pitch.current, yaw.current, 0);
-  }, [camera, resetSignal]);
-
-  useEffect(() => {
-    const canvas = gl.domElement;
-    const onPointerDown = (event: PointerEvent) => {
-      dragging.current = true;
-      pointer.current = { x: event.clientX, y: event.clientY };
-      canvas.setPointerCapture(event.pointerId);
-    };
-    const onPointerMove = (event: PointerEvent) => {
-      if (!dragging.current) return;
-      const dx = event.clientX - pointer.current.x;
-      const dy = event.clientY - pointer.current.y;
-      pointer.current = { x: event.clientX, y: event.clientY };
-      yaw.current -= dx * 0.004;
-      pitch.current = THREE.MathUtils.clamp(pitch.current - dy * 0.003, -0.72, 0.72);
-    };
-    const onPointerUp = () => {
-      dragging.current = false;
-    };
-    const onKeyDown = (event: KeyboardEvent) => {
-      const target = event.target;
-      if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) return;
-      if (["KeyW", "KeyA", "KeyS", "KeyD", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.code)) {
-        event.preventDefault();
-        keys.current.add(event.code);
-      }
-    };
-    const onKeyUp = (event: KeyboardEvent) => keys.current.delete(event.code);
-
-    canvas.addEventListener("pointerdown", onPointerDown);
-    canvas.addEventListener("pointermove", onPointerMove);
-    canvas.addEventListener("pointerup", onPointerUp);
-    canvas.addEventListener("pointercancel", onPointerUp);
-    window.addEventListener("keydown", onKeyDown);
-    window.addEventListener("keyup", onKeyUp);
-    return () => {
-      canvas.removeEventListener("pointerdown", onPointerDown);
-      canvas.removeEventListener("pointermove", onPointerMove);
-      canvas.removeEventListener("pointerup", onPointerUp);
-      canvas.removeEventListener("pointercancel", onPointerUp);
-      window.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("keyup", onKeyUp);
-    };
-  }, [gl]);
-
-  useFrame((_, rawDelta) => {
-    const delta = Math.min(rawDelta, 0.05);
-    const pressed = keys.current;
-    const forward =
-      movement.current.forward +
-      (pressed.has("KeyW") || pressed.has("ArrowUp") ? 1 : 0) -
-      (pressed.has("KeyS") || pressed.has("ArrowDown") ? 1 : 0);
-    const strafe =
-      movement.current.right +
-      (pressed.has("KeyD") || pressed.has("ArrowRight") ? 1 : 0) -
-      (pressed.has("KeyA") || pressed.has("ArrowLeft") ? 1 : 0);
-
-    camera.rotation.set(pitch.current, yaw.current, 0);
-    camera.getWorldDirection(FORWARD);
-    FORWARD.y = 0;
-    FORWARD.normalize();
-    RIGHT.crossVectors(FORWARD, camera.up).normalize();
-    MOVE.set(0, 0, 0).addScaledVector(FORWARD, forward).addScaledVector(RIGHT, strafe);
-    if (MOVE.lengthSq() > 0) {
-      MOVE.normalize().multiplyScalar(2.35 * delta);
-      camera.position.add(MOVE);
-      camera.position.x = THREE.MathUtils.clamp(camera.position.x, -4.35, 4.35);
-      camera.position.z = THREE.MathUtils.clamp(camera.position.z, -4.35, 4.35);
-    }
-    camera.position.y = 1.65;
-  });
-
-  return null;
 }
 
 function PaintWall({
@@ -166,14 +70,10 @@ function RoomScene({
   colors,
   selectedWall,
   onSelectWall,
-  movement,
-  resetSignal,
 }: {
   colors: RoomWallColors;
   selectedWall: RoomWall;
   onSelectWall: (wall: RoomWall) => void;
-  movement: React.RefObject<MoveState>;
-  resetSignal: number;
 }) {
   return (
     <>
@@ -194,6 +94,7 @@ function RoomScene({
         <boxGeometry args={[10, 0.16, 10]} />
         <meshStandardMaterial color="#f3eee6" roughness={0.92} />
       </mesh>
+      
       <PaintWall wall="front" position={[0, 2.25, -5]} size={[10, 4.5, 0.14]} color={colors.front} selected={selectedWall === "front"} onSelect={onSelectWall} />
       <PaintWall wall="back" position={[0, 2.25, 5]} size={[10, 4.5, 0.14]} color={colors.back} selected={selectedWall === "back"} onSelect={onSelectWall} />
       <PaintWall wall="left" position={[-5, 2.25, 0]} size={[0.14, 4.5, 10]} color={colors.left} selected={selectedWall === "left"} onSelect={onSelectWall} />
@@ -209,7 +110,14 @@ function RoomScene({
         <FurnitureModel path="/models/room/lamp.glb" position={[3.8, 0, -2.9]} scale={1.25} />
       </group>
 
-      <WalkCamera movement={movement} resetSignal={resetSignal} />
+      <OrbitControls 
+        makeDefault 
+        enablePan={false}
+        enableZoom={true} 
+        minDistance={0.1}
+        maxDistance={4}
+        target={[0, 1.65, -0.01]} 
+      />
     </>
   );
 }
@@ -223,56 +131,18 @@ export default function Room3D({
   selectedWall: RoomWall;
   onSelectWall: (wall: RoomWall) => void;
 }) {
-  const movement = useRef<MoveState>({ forward: 0, right: 0 });
-  const [resetSignal, setResetSignal] = useState(0);
-
-  const hold = (axis: keyof MoveState, value: number) => () => {
-    movement.current[axis] = value;
-  };
-  const release = (axis: keyof MoveState) => () => {
-    movement.current[axis] = 0;
-  };
-
   return (
-    <div className="relative aspect-[4/3] min-h-[20rem] w-full overflow-hidden bg-sand sm:min-h-[28rem]" aria-label="Interactive 3D room color preview">
-      <Canvas shadows dpr={[1, 1.5]} camera={{ position: [0, 1.65, 4], fov: 68, near: 0.1, far: 30 }} gl={{ antialias: true }}>
+    <div className="relative aspect-[4/3] min-h-[20rem] w-full overflow-hidden bg-sand sm:min-h-[28rem] touch-none cursor-move rounded-md" aria-label="Interactive 3D room color preview">
+      <Canvas shadows dpr={[1, 1.5]} camera={{ position: [0, 1.65, 0.1], fov: 75, near: 0.1, far: 30 }} gl={{ antialias: true }}>
         <Suspense fallback={null}>
-          <RoomScene colors={colors} selectedWall={selectedWall} onSelectWall={onSelectWall} movement={movement} resetSignal={resetSignal} />
+          <RoomScene colors={colors} selectedWall={selectedWall} onSelectWall={onSelectWall} />
         </Suspense>
       </Canvas>
-
-      <div className="pointer-events-none absolute inset-x-2 bottom-2 flex items-end justify-between gap-2">
-        <div className="pointer-events-auto grid grid-cols-3 gap-1 rounded-md border border-border bg-background/90 p-1 shadow-soft backdrop-blur-sm" aria-label="Walk around room">
-          <span />
-          <Button size="icon" variant="outline" aria-label="Walk forward" className="h-10 w-10 touch-none" onPointerDown={hold("forward", 1)} onPointerUp={release("forward")} onPointerLeave={release("forward")}>
-            ↑
-          </Button>
-          <span />
-          <Button size="icon" variant="outline" aria-label="Walk left" className="h-10 w-10 touch-none" onPointerDown={hold("right", -1)} onPointerUp={release("right")} onPointerLeave={release("right")}>
-            ←
-          </Button>
-          <Button size="icon" variant="outline" aria-label="Walk backward" className="h-10 w-10 touch-none" onPointerDown={hold("forward", -1)} onPointerUp={release("forward")} onPointerLeave={release("forward")}>
-            ↓
-          </Button>
-          <Button size="icon" variant="outline" aria-label="Walk right" className="h-10 w-10 touch-none" onPointerDown={hold("right", 1)} onPointerUp={release("right")} onPointerLeave={release("right")}>
-            →
-          </Button>
+      <div className="pointer-events-none absolute bottom-4 left-0 right-0 flex justify-center">
+        <div className="rounded-full bg-background/80 px-4 py-2 text-xs font-medium backdrop-blur-sm shadow-sm">
+          Swipe to look around
         </div>
-        <Button type="button" variant="secondary" size="sm" className="pointer-events-auto shadow-soft" onClick={() => setResetSignal((value) => value + 1)}>
-          Reset view
-        </Button>
       </div>
-      <p className="pointer-events-none absolute left-2 top-2 rounded-md bg-background/90 px-2 py-1 text-[11px] font-bold shadow-soft backdrop-blur-sm">
-        Drag to look · Tap a wall to paint
-      </p>
     </div>
   );
 }
-
-useGLTF.preload("/models/room/sofa.glb");
-useGLTF.preload("/models/room/coffee-table.glb");
-useGLTF.preload("/models/room/plant.glb");
-useGLTF.preload("/models/room/rug.glb");
-useGLTF.preload("/models/room/television.glb");
-useGLTF.preload("/models/room/bookcase.glb");
-useGLTF.preload("/models/room/lamp.glb");
