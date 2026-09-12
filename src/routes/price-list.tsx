@@ -7,7 +7,7 @@ import { track } from "@/lib/analytics";
 
 const title = `Price List & Asian Paints Shades | ${business.name}`;
 const description =
-  "Search the official Asian Paints shade directory and ask Shree Ji Enterprises for current paint, plywood and hardware prices.";
+  "Search the official Asian Paints shade directory and ask Shree Jee Enterprises for current paint, plywood and hardware prices.";
 
 export const Route = createFileRoute("/price-list")({
   head: () => ({

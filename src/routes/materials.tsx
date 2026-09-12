@@ -9,7 +9,7 @@ import { ArrowIcon } from "@/components/Icons";
 
 const title = `Plywood, Hardware, Laminates & Fevicol | ${business.name}`;
 const description =
-  "Browse plywood, boards, laminates, furniture hardware, genuine Fevicol adhesives and accessories available at Shree Ji Enterprises.";
+  "Browse plywood, boards, laminates, furniture hardware, genuine Fevicol adhesives and accessories available at Shree Jee Enterprises.";
 
 export const Route = createFileRoute("/materials")({
   head: () => ({

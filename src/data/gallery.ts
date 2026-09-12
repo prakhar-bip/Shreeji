@@ -25,8 +25,8 @@ export const galleryItems: GalleryItem[] = [
   {
     id: "g1",
     src: exteriorAsset,
-    alt: "Front of Shree Ji Enterprises with Asian Paints Colourworld signage",
-    caption: "Shree Ji Enterprises",
+    alt: "Front of Shree Jee Enterprises with Asian Paints Colourworld signage",
+    caption: "Shree Jee Enterprises",
     shape: "wide",
   },
   {
@@ -46,7 +46,7 @@ export const galleryItems: GalleryItem[] = [
   {
     id: "g4",
     src: plywoodAsset,
-    alt: "Plywood sheets stacked inside Shree Ji Enterprises",
+    alt: "Plywood sheets stacked inside Shree Jee Enterprises",
     caption: "Plywood stock",
     shape: "tall",
   },

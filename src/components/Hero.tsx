@@ -39,7 +39,7 @@ export function Hero() {
       <div className="container-page relative grid gap-6 md:grid-cols-2 md:items-center md:gap-10">
         <div>
           <div className="mb-3 flex items-center gap-3">
-            <img src={shreeLogoAsset} alt="श्री — Shree Ji Enterprises" width={1200} height={608} className="h-16 w-40 object-contain object-left md:h-20 md:w-52" />
+            <img src={shreeLogoAsset} alt="श्री — Shree Jee Enterprises" width={1200} height={608} className="h-16 w-40 object-contain object-left md:h-20 md:w-52" />
             <span className="h-10 w-px bg-border" aria-hidden="true" />
             <div>
               <img src={asianPaintsLogoAsset} alt="Asian Paints" width={321} height={63} className="h-7 w-28 object-contain object-left md:h-8 md:w-32" />
@@ -82,7 +82,7 @@ export function Hero() {
           >
             <img
               src={shopFrontAsset}
-              alt="Front of Shree Ji Enterprises shop with Asian Paints Colourworld signage"
+              alt="Front of Shree Jee Enterprises shop with Asian Paints Colourworld signage"
               width={1376}
               height={768}
               fetchPriority="high"

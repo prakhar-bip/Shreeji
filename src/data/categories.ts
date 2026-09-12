@@ -62,7 +62,7 @@ export const categories: Category[] = [
     intro:
       "Choose from Asian Paints shades and products. We will help estimate how much paint your room needs.",
     image: colorsAsset,
-    imageAlt: "Asian Paints products stocked inside Shree Ji Enterprises",
+    imageAlt: "Asian Paints products stocked inside Shree Jee Enterprises",
     section: "colors",
   },
   {

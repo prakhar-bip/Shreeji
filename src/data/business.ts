@@ -8,7 +8,7 @@
 
 export const business = {
   /** Shop display name */
-  name: "Shree Ji Enterprises",
+  name: "Shree Jee Enterprises",
   tagline: "Plywood, Hardware & Asian Paints",
 
   /** One-line description used in SEO + hero support text */
@@ -16,12 +16,12 @@ export const business = {
     "Plywood, mica, furniture hardware and genuine Asian Paints products — everything you need for furniture and beautiful interiors at one local shop.",
 
   /** PLACEHOLDER — replace with the real phone number */
-  phone: "1234567890",
+  phone: "8989622296",
   /** Country code without "+" (91 = India) */
   countryCode: "91",
 
   /** PLACEHOLDER — replace with the real WhatsApp number (digits only, no +) */
-  whatsappNumber: "1234567890",
+  whatsappNumber: "8989622296",
 
   /** PLACEHOLDER — replace with the real address */
   address: "Garoth Road, near ICICI Bank",
@@ -30,9 +30,9 @@ export const business = {
   pincode: "",
 
   /** PLACEHOLDER — replace with the real Google Maps share link */
-  mapsLink: "https://maps.google.com/?q=Garoth+Road+near+ICICI+Bank",
+  mapsLink: "https://maps.app.goo.gl/MoacJefByk3fiJWc6",
   /** PLACEHOLDER — replace with a real Google Maps embed URL (Share → Embed a map) */
-  mapsEmbedUrl: "",
+  mapsEmbedUrl: "https://maps.google.com/maps?q=24.1924782,75.6360827&hl=en&z=16&output=embed",
 
   /** PLACEHOLDER — replace with real opening hours */
   hours: "10:00 AM – 8:00 PM",

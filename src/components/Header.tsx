@@ -15,10 +15,10 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/90 backdrop-blur-sm">
       <div className="container-page flex h-16 items-center gap-4">
-        <Link to="/" aria-label="Shree Ji Enterprises home" className="flex min-w-0 items-center gap-3">
+        <Link to="/" aria-label="Shree Jee Enterprises home" className="flex min-w-0 items-center gap-3">
           <img
             src={shreeLogoAsset}
-            alt="श्री — Shree Ji Enterprises"
+            alt="श्री — Shree Jee Enterprises"
             width={1200}
             height={608}
             className="h-11 w-28 object-contain object-left md:h-12 md:w-36"

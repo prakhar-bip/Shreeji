@@ -59,7 +59,7 @@ function ColorsPage() {
           </div>
           <img
             src={colorsImage}
-            alt="Asian Paints products inside Shree Ji Enterprises"
+            alt="Asian Paints products inside Shree Jee Enterprises"
             width={768}
             height={576}
             className="aspect-[4/3] w-full rounded-lg border border-border object-cover"
