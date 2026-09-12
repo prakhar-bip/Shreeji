@@ -47,6 +47,10 @@
   --color-ink: var(--ink);
   --color-whatsapp: var(--whatsapp);
   --color-whatsapp-foreground: oklch(1 0 0);
+  --color-asian-red: var(--asian-red);
+  --color-asian-yellow: var(--asian-yellow);
+  --color-asian-blue: var(--asian-blue);
+  --color-asian-foreground: oklch(1 0 0);
 
   --shadow-soft: 0 1px 2px oklch(0.3 0.03 60 / 0.04), 0 8px 24px oklch(0.3 0.03 60 / 0.07);
   --shadow-lift: 0 2px 4px oklch(0.3 0.03 60 / 0.05), 0 18px 40px oklch(0.3 0.03 60 / 0.12);
@@ -83,6 +87,9 @@
   --olive: oklch(0.48 0.055 120);
   --ink: oklch(0.24 0.014 60);
   --whatsapp: oklch(0.6 0.15 150);
+  --asian-red: oklch(0.54 0.22 24);
+  --asian-yellow: oklch(0.82 0.17 85);
+  --asian-blue: oklch(0.47 0.17 258);
 }
 
 @layer base {

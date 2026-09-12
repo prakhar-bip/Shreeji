@@ -9,6 +9,7 @@ const title = `Owner sign in | ${business.name}`;
 const description = "Private owner sign-in for visitor reports.";
 
 export const Route = createFileRoute("/auth")({
+  ssr: false,
   head: () => ({
     meta: [
       { title },

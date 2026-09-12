@@ -55,8 +55,8 @@ function CategoryPage() {
       <section className="bg-cream pt-8 pb-10 md:pt-12">
         <div className="container-page">
           <nav aria-label="Breadcrumb" className="text-xs font-semibold text-muted-foreground">
-            <Link to="/products" className="hover:text-foreground">
-              Products
+            <Link to={isColors ? "/colors" : "/materials"} className="hover:text-foreground">
+              {isColors ? "Colors" : "Materials"}
             </Link>
             <span aria-hidden="true"> / </span>
             <span className="text-foreground">{category.name}</span>
@@ -110,10 +110,12 @@ function CategoryPage() {
           </div>
 
           <div className="mt-10">
-            <h2 className="font-display text-xl font-semibold">Other categories</h2>
+            <h2 className="font-display text-xl font-semibold">
+              {isColors ? "Explore more" : "Other materials"}
+            </h2>
             <ul className="mt-3 flex flex-wrap gap-2">
               {categories
-                .filter((c) => c.slug !== category.slug)
+                .filter((c) => c.slug !== category.slug && c.section === category.section)
                 .map((c) => (
                   <li key={c.slug}>
                     <Link

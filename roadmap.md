@@ -10,5 +10,20 @@
 - [x] Add a searchable inventory page and link it from Products.
 - [x] Save contact inquiries privately and show them in owner reports.
 - [x] Add product-view and WhatsApp-click totals and recent activity.
-- [ ] Replace sample products and photos (waiting for the real product list and uploads).
+- [ ] Replace sample products and prices (waiting for the real product list).
 - [ ] Send automatic WhatsApp alerts (waiting for a connected Twilio WhatsApp account).
+- [x] Replace placeholder shop/gallery imagery with the supplied real storefront, interiors, and plywood photos.
+- [x] Match the storefront name and add Asian Paints Colourworld branding without using the last two uploaded photos.
+- [x] Add an official searchable Asian Paints wall-shade directory and catalog link.
+- [x] Add a price-list page without publishing guessed shop prices.
+- [x] Add an original shop and Asian Paints availability badge plus browser-tab icon.
+- [x] Enhance only the first four supplied shop photos and remove the person from the storefront.
+- [ ] Add exact plywood, hardware, and paint-pack price rows (waiting for the real price list).
+- [ ] Import the owner's real price list when supplied (waiting for product, size, brand, and price data).
+- [x] Replace the current badge with a sindoor-red Hindi “श्री” shop mark and Asian Paints branding.
+- [x] Add a back control to every page except the home page.
+- [x] Create and wire one realistic 3D-style product image for every catalog item lacking its own photo.
+- [x] Replace generic adhesive renders with genuine Fevicol SH and SR 998 product images.
+- [x] Separate Asian Paints colors and other materials into dedicated pages and navigation.
+- [x] Combine the complete Asian Paints shade selector, instant default-room preview, and customer photo upload in one color studio.
+- [x] Replace the flat default preview with a walk-through 3D room, independently colorable walls, wall tapping, and mobile controls.

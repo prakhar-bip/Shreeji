@@ -14,23 +14,15 @@ export function ProductCard({ product }: { product: Product }) {
         params={{ slug: product.slug }}
         className="block h-full min-h-36 overflow-hidden bg-sand sm:aspect-[4/3] sm:min-h-0"
       >
-        {product.swatch ? (
-          <span
-            aria-hidden="true"
-            className="block h-full w-full"
-            style={{ backgroundColor: product.swatch }}
-          />
-        ) : (
-          <img
-            src={product.image}
-            alt={product.imageAlt}
-            width={1024}
-            height={768}
-            loading="lazy"
-            decoding="async"
-            className="h-full w-full object-cover"
-          />
-        )}
+        <img
+          src={product.image}
+          alt={product.imageAlt}
+          width={768}
+          height={576}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover"
+        />
       </Link>
 
       <div className="flex min-w-0 flex-1 flex-col p-3.5 sm:p-4">
@@ -46,6 +38,12 @@ export function ProductCard({ product }: { product: Product }) {
         </h3>
         {product.brand ? (
           <p className="mt-0.5 text-xs text-muted-foreground">{product.brand}</p>
+        ) : null}
+        {product.swatch ? (
+          <span className="mt-2 inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground">
+            <span className="h-4 w-4 rounded-full border border-border" style={{ backgroundColor: product.swatch }} aria-hidden="true" />
+            Shade preview
+          </span>
         ) : null}
         <p className="mt-1 line-clamp-2 text-xs text-muted-foreground sm:mt-2 sm:text-sm">
           {product.shortDescription}

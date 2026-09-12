@@ -6,11 +6,11 @@
  * same filename) or import a new one and swap the `image` value.
  */
 
-import plywood from "@/assets/cat-plywood.jpg";
+import plywoodAsset from "@/assets/shop-plywood-stock-enhanced.webp.asset.json";
 import mica from "@/assets/cat-mica.jpg";
-import hardware from "@/assets/cat-hardware.jpg";
-import colors from "@/assets/cat-colors.jpg";
-import adhesives from "@/assets/cat-adhesives.jpg";
+import hardwareAsset from "@/assets/shop-hardware-interior-enhanced.webp.asset.json";
+import colorsAsset from "@/assets/shop-paint-interior-enhanced.webp.asset.json";
+import fevicolSh from "@/assets/product-fevicol-sh.png.asset.json";
 import accessories from "@/assets/cat-accessories.jpg";
 
 export type Category = {
@@ -21,6 +21,7 @@ export type Category = {
   intro?: string;
   image: string;
   imageAlt: string;
+  section: "colors" | "materials";
 };
 
 export const categories: Category[] = [
@@ -30,8 +31,9 @@ export const categories: Category[] = [
     description: "Commercial and waterproof plywood, MDF, particle board and blockboard.",
     intro:
       "Boards for furniture, wardrobes, kitchens and shuttering work — in the thicknesses and grades carpenters ask for most.",
-    image: plywood,
+    image: plywoodAsset.url,
     imageAlt: "Stacked plywood sheets showing layered edges",
+    section: "materials",
   },
   {
     slug: "mica-laminates",
@@ -41,6 +43,7 @@ export const categories: Category[] = [
       "Hundreds of finishes to choose from. Bring your design or come see the sample catalogues at the shop.",
     image: mica,
     imageAlt: "Laminate and mica sheet samples fanned out in different finishes",
+    section: "materials",
   },
   {
     slug: "hinges-hardware",
@@ -48,25 +51,28 @@ export const categories: Category[] = [
     description: "Auto hinges, soft-close hinges, channels, locks and fittings.",
     intro:
       "Hinges, drawer channels, locks, tower bolts and fittings for everyday furniture work.",
-    image: hardware,
+    image: hardwareAsset.url,
     imageAlt: "Cabinet hinges, channels and furniture fittings arranged on a cream surface",
+    section: "materials",
   },
   {
     slug: "wall-colors",
-    name: "Wall Colors",
-    description: "Interior and exterior paints, primers, putty and shade cards.",
+    name: "Asian Paints Colors",
+    description: "Genuine Asian Paints interior and exterior paints, primers and putty.",
     intro:
-      "Pick a shade from the shade card and we will help you work out how much paint your room needs.",
-    image: colors,
-    imageAlt: "Open paint tins and colour swatch cards in warm earthy shades",
+      "Choose from Asian Paints shades and products. We will help estimate how much paint your room needs.",
+    image: colorsAsset.url,
+    imageAlt: "Asian Paints products stocked inside Shree Ji Enterprises",
+    section: "colors",
   },
   {
     slug: "adhesives",
-    name: "Adhesives & Fevicol",
-    description: "Wood adhesives, contact adhesives, sealants and tapes.",
-    intro: "Adhesives for laminate pasting, joinery and general interior work.",
-    image: adhesives,
-    imageAlt: "White wood adhesive tubs with an application knife",
+    name: "Fevicol & Adhesives",
+    description: "Genuine Fevicol wood and contact adhesives for furniture work.",
+    intro: "Fevicol adhesives for laminate pasting, joinery and general interior work.",
+    image: fevicolSh.url,
+    imageAlt: "Genuine Fevicol SH adhesive container",
+    section: "materials",
   },
   {
     slug: "furniture-accessories",
@@ -75,7 +81,10 @@ export const categories: Category[] = [
     intro: "The finishing touches — handles, knobs, hooks, edge profiles and more.",
     image: accessories,
     imageAlt: "Brass and black furniture handles, knobs and pulls in a neat grid",
+    section: "materials",
   },
 ];
 
 export const getCategory = (slug: string) => categories.find((c) => c.slug === slug);
+export const colorCategories = categories.filter((category) => category.section === "colors");
+export const materialCategories = categories.filter((category) => category.section === "materials");

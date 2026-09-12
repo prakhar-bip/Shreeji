@@ -17,7 +17,7 @@ import { waMessages } from "@/lib/whatsapp";
 const reasons = [
   {
     title: "Wide Variety",
-    text: "Plywood, laminates, hardware, paints and adhesives under one roof — fewer trips for your job.",
+    text: "Plywood, laminates, hardware, Asian Paints colors and adhesives under one roof — fewer trips for your job.",
   },
   {
     title: "Quality Products",
@@ -25,7 +25,7 @@ const reasons = [
   },
   {
     title: "Trusted Brands",
-    text: "Well-known brands alongside dependable everyday options for tighter budgets.",
+    text: "Genuine Asian Paints products alongside dependable furniture and hardware materials.",
   },
   {
     title: "Local & Convenient",

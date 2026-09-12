@@ -17,9 +17,11 @@ import { galleryItems } from "@/data/gallery";
 import { business, fullAddress } from "@/data/business";
 import { track } from "@/lib/analytics";
 import { ArrowIcon } from "@/components/Icons";
-import { QuickCatalog } from "@/components/QuickCatalog";
+import asianPaintsLogo from "@/assets/asian-paints-logo.webp.asset.json";
+import colorsImage from "@/assets/shop-paint-interior-enhanced.webp.asset.json";
+import materialsImage from "@/assets/shop-hardware-interior-enhanced.webp.asset.json";
 
-const title = `${business.name} — Plywood, Mica, Hardware & Wall Colors`;
+const title = `${business.name} — Plywood, Hardware & Asian Paints`;
 const description = business.shortDescription;
 
 export const Route = createFileRoute("/")({
@@ -62,8 +64,24 @@ function HomePage() {
 
       <section className="section">
         <div className="container-page">
-          <SectionHeading eyebrow="Shop products" title="Tap a type to see items" />
-          <div className="mt-5"><QuickCatalog /></div>
+          <SectionHeading eyebrow="Shop products" title="Choose colors or materials" />
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            <Link to="/colors" className="overflow-hidden rounded-lg border border-border bg-card">
+              <img src={colorsImage.url} alt="Asian Paints products inside the shop" className="aspect-[16/9] w-full object-cover" />
+              <div className="p-4">
+                <img src={asianPaintsLogo.url} alt="Asian Paints" className="h-6 w-32 object-contain object-left" />
+                <span className="mt-3 flex items-center justify-between text-xl font-semibold">Colors <ArrowIcon className="h-5 w-5" /></span>
+                <p className="mt-1 text-sm text-muted-foreground">Find shades and see a color in your room</p>
+              </div>
+            </Link>
+            <Link to="/materials" className="overflow-hidden rounded-lg border border-border bg-card">
+              <img src={materialsImage.url} alt="Furniture hardware and other materials inside the shop" className="aspect-[16/9] w-full object-cover" />
+              <div className="p-4">
+                <span className="flex items-center justify-between text-xl font-semibold">Other Materials <ArrowIcon className="h-5 w-5" /></span>
+                <p className="mt-1 text-sm text-muted-foreground">Plywood, laminates, hardware, Fevicol and accessories</p>
+              </div>
+            </Link>
+          </div>
         </div>
       </section>
 

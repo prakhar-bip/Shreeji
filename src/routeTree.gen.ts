@@ -12,10 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ColorsRouteImport } from './routes/colors'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as InventoryRouteImport } from './routes/inventory'
 import { Route as LocationRouteImport } from './routes/location'
+import { Route as MaterialsRouteImport } from './routes/materials'
+import { Route as PriceListRouteImport } from './routes/price-list'
 import { Route as WhyUsRouteImport } from './routes/why-us'
 import { Route as AuthenticatedReportsRouteImport } from './routes/_authenticated/reports'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
@@ -36,6 +39,11 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ColorsRoute = ColorsRouteImport.update({
+  id: '/colors',
+  path: '/colors',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -54,6 +62,16 @@ const InventoryRoute = InventoryRouteImport.update({
 const LocationRoute = LocationRouteImport.update({
   id: '/location',
   path: '/location',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MaterialsRoute = MaterialsRouteImport.update({
+  id: '/materials',
+  path: '/materials',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PriceListRoute = PriceListRouteImport.update({
+  id: '/price-list',
+  path: '/price-list',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WhyUsRoute = WhyUsRouteImport.update({
@@ -85,10 +103,13 @@ const ProductsCategoryRoute = ProductsCategoryRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/colors': typeof ColorsRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/inventory': typeof InventoryRoute
   '/location': typeof LocationRoute
+  '/materials': typeof MaterialsRoute
+  '/price-list': typeof PriceListRoute
   '/why-us': typeof WhyUsRoute
   '/reports': typeof AuthenticatedReportsRoute
   '/product/$slug': typeof ProductSlugRoute
@@ -98,10 +119,13 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/colors': typeof ColorsRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/inventory': typeof InventoryRoute
   '/location': typeof LocationRoute
+  '/materials': typeof MaterialsRoute
+  '/price-list': typeof PriceListRoute
   '/why-us': typeof WhyUsRoute
   '/reports': typeof AuthenticatedReportsRoute
   '/product/$slug': typeof ProductSlugRoute
@@ -113,10 +137,13 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/colors': typeof ColorsRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/inventory': typeof InventoryRoute
   '/location': typeof LocationRoute
+  '/materials': typeof MaterialsRoute
+  '/price-list': typeof PriceListRoute
   '/why-us': typeof WhyUsRoute
   '/_authenticated/reports': typeof AuthenticatedReportsRoute
   '/product/$slug': typeof ProductSlugRoute
@@ -128,10 +155,13 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/colors'
     | '/contact'
     | '/gallery'
     | '/inventory'
     | '/location'
+    | '/materials'
+    | '/price-list'
     | '/why-us'
     | '/reports'
     | '/product/$slug'
@@ -141,10 +171,13 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/colors'
     | '/contact'
     | '/gallery'
     | '/inventory'
     | '/location'
+    | '/materials'
+    | '/price-list'
     | '/why-us'
     | '/reports'
     | '/product/$slug'
@@ -155,10 +188,13 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/colors'
     | '/contact'
     | '/gallery'
     | '/inventory'
     | '/location'
+    | '/materials'
+    | '/price-list'
     | '/why-us'
     | '/_authenticated/reports'
     | '/product/$slug'
@@ -170,10 +206,13 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  ColorsRoute: typeof ColorsRoute
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
   InventoryRoute: typeof InventoryRoute
   LocationRoute: typeof LocationRoute
+  MaterialsRoute: typeof MaterialsRoute
+  PriceListRoute: typeof PriceListRoute
   WhyUsRoute: typeof WhyUsRoute
   ProductSlugRoute: typeof ProductSlugRoute
   ProductsCategoryRoute: typeof ProductsCategoryRoute
@@ -203,6 +242,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/colors': {
+      id: '/colors'
+      path: '/colors'
+      fullPath: '/colors'
+      preLoaderRoute: typeof ColorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -229,6 +275,20 @@ declare module '@tanstack/react-router' {
       path: '/location'
       fullPath: '/location'
       preLoaderRoute: typeof LocationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/materials': {
+      id: '/materials'
+      path: '/materials'
+      fullPath: '/materials'
+      preLoaderRoute: typeof MaterialsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/price-list': {
+      id: '/price-list'
+      path: '/price-list'
+      fullPath: '/price-list'
+      preLoaderRoute: typeof PriceListRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/why-us': {
@@ -284,10 +344,13 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  ColorsRoute: ColorsRoute,
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
   InventoryRoute: InventoryRoute,
   LocationRoute: LocationRoute,
+  MaterialsRoute: MaterialsRoute,
+  PriceListRoute: PriceListRoute,
   WhyUsRoute: WhyUsRoute,
   ProductSlugRoute: ProductSlugRoute,
   ProductsCategoryRoute: ProductsCategoryRoute,

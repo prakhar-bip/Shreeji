@@ -6,7 +6,7 @@ import { DirectionsButton, CallButton, WhatsAppButton } from "@/components/Conta
 import { business, fullAddress } from "@/data/business";
 import { waMessages } from "@/lib/whatsapp";
 import { track } from "@/lib/analytics";
-import exterior from "@/assets/shop-exterior.jpg";
+import exteriorAsset from "@/assets/shop-front-enhanced.webp.asset.json";
 
 const title = `Shop Location & Timings | ${business.name}`;
 const description = `Find us at ${fullAddress}. Open ${business.hours}. Get directions, call, or message us on WhatsApp before you visit.`;
@@ -53,13 +53,13 @@ function LocationPage() {
           </div>
           <div className="card-soft mt-8 overflow-hidden">
             <img
-              src={exterior}
-              alt="Shop exterior with plywood and laminate sheets visible inside"
-              width={1024}
+              src={exteriorAsset.url}
+              alt="Front of Shree Ji Enterprises with Asian Paints Colourworld signage"
+              width={1376}
               height={768}
               loading="lazy"
               decoding="async"
-              className="aspect-[16/10] w-full object-cover"
+              className="aspect-[16/9] w-full object-cover"
             />
           </div>
         </div>

@@ -28,6 +28,7 @@ export type AnalyticsEvent =
   | "directions_click"
   | "product_request_click"
   | "gallery_open"
+  | "color_selected"
   | "color_photo_added"
   | "color_preview_created";
 

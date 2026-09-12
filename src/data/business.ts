@@ -8,15 +8,15 @@
 
 export const business = {
   /** Shop display name */
-  name: "श्री जी इन्टरप्राईजेस",
-  tagline: "फर्नीचर एवं इंटीरियर सामग्री",
+  name: "Shree Ji Enterprises",
+  tagline: "Plywood, Hardware & Asian Paints",
 
   /** One-line description used in SEO + hero support text */
   shortDescription:
-    "Plywood, mica, hardware, paints and adhesives — everything you need for furniture and beautiful interiors, at one local shop.",
+    "Plywood, mica, furniture hardware and genuine Asian Paints products — everything you need for furniture and beautiful interiors at one local shop.",
 
   /** PLACEHOLDER — replace with the real phone number */
-  phone: "9926418596",
+  phone: "1234567890",
   /** Country code without "+" (91 = India) */
   countryCode: "91",
 

@@ -58,8 +58,8 @@ function ProductPage() {
       <article className="pt-6 pb-4">
         <div className="container-page">
           <nav aria-label="Breadcrumb" className="text-xs font-semibold text-muted-foreground">
-            <Link to="/products" className="hover:text-foreground">
-              Products
+            <Link to={category?.section === "colors" ? "/colors" : "/materials"} className="hover:text-foreground">
+              {category?.section === "colors" ? "Colors" : "Materials"}
             </Link>
             {category ? (
               <>
@@ -77,23 +77,17 @@ function ProductPage() {
 
           <div className="mt-4 grid gap-7 md:grid-cols-2 md:gap-10">
             <div className="card-soft overflow-hidden">
-              {product.swatch ? (
-                <span
-                  aria-label={product.imageAlt}
-                  role="img"
-                  className="block aspect-square w-full"
-                  style={{ backgroundColor: product.swatch }}
-                />
-              ) : (
-                <img
-                  src={product.image}
-                  alt={product.imageAlt}
-                  width={1024}
-                  height={768}
-                  decoding="async"
-                  className="aspect-square w-full object-cover"
-                />
-              )}
+              <img
+                src={product.image}
+                alt={product.imageAlt}
+                width={768}
+                height={576}
+                decoding="async"
+                className="aspect-square w-full object-cover"
+              />
+              <p className="border-t border-border bg-cream px-3 py-2 text-center text-xs text-muted-foreground">
+                {product.brand === "Fevicol" ? "Official product image" : "Representative 3D product view"}
+              </p>
             </div>
 
             <div>
@@ -105,6 +99,12 @@ function ProductPage() {
               </h1>
               {product.brand ? (
                 <p className="mt-1 text-sm text-muted-foreground">Brand: {product.brand}</p>
+              ) : null}
+              {product.swatch ? (
+                <p className="mt-3 inline-flex items-center gap-2 text-sm font-semibold">
+                  <span className="h-6 w-6 rounded-full border border-border" style={{ backgroundColor: product.swatch }} aria-hidden="true" />
+                  Selected wall shade
+                </p>
               ) : null}
               {product.price ? (
                 <p className="mt-4 font-display text-xl font-semibold">{product.price}</p>

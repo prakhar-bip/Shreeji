@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { categories } from "@/data/categories";
+import { categories, type Category } from "@/data/categories";
 import { productsByCategory } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 
-export function QuickCatalog() {
-  const [selected, setSelected] = useState(categories[0]?.slug ?? "");
+export function QuickCatalog({ categoryList = categories }: { categoryList?: Category[] }) {
+  const [selected, setSelected] = useState(categoryList[0]?.slug ?? "");
   const items = productsByCategory(selected);
 
   return (
     <div>
       <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-3 md:mx-0 md:flex-wrap md:px-0">
-        {categories.map((category) => (
+        {categoryList.map((category) => (
           <button
             key={category.slug}
             type="button"

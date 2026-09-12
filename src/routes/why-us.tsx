@@ -4,7 +4,7 @@ import { WhyUsSection, ReviewsSection, ContactStrip } from "@/components/HomeSec
 import { SectionHeading } from "@/components/SectionHeading";
 import { business } from "@/data/business";
 import { track } from "@/lib/analytics";
-import interior from "@/assets/shop-interior.jpg";
+import interiorAsset from "@/assets/shop-hardware-interior-enhanced.webp.asset.json";
 
 const title = `Why Choose Us | ${business.name}`;
 const description =
@@ -40,9 +40,9 @@ function WhyUsPage() {
           />
           <div className="card-soft overflow-hidden">
             <img
-              src={interior}
-              alt="Inside the shop — laminate racks, plywood stacks and shelves of hardware"
-              width={1024}
+              src={interiorAsset.url}
+              alt="Furniture hardware and Asian Paints products stocked inside Shree Ji Enterprises"
+              width={1376}
               height={768}
               loading="lazy"
               decoding="async"

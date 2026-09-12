@@ -18,6 +18,7 @@ const EventInput = z.object({
     "gallery_open",
     "color_photo_added",
     "color_preview_created",
+    "color_selected",
   ]),
   page: z.string().min(1).max(240),
   visitorId: z.string().min(16).max(100),

@@ -8,16 +8,26 @@
  * `price` is an APPROXIMATE indication only and is always shown
  * with a "prices may vary" note. Leave it out to hide it.
  *
- * `swatch` (hex colour) is used by the Wall Colors section to
+ * `swatch` (hex colour) is used by the Asian Paints Colors section to
  * render a colour card instead of relying only on a photo.
  */
 
-import plywood from "@/assets/cat-plywood.jpg";
-import mica from "@/assets/cat-mica.jpg";
-import hardware from "@/assets/cat-hardware.jpg";
-import colors from "@/assets/cat-colors.jpg";
-import adhesives from "@/assets/cat-adhesives.jpg";
-import accessories from "@/assets/cat-accessories.jpg";
+import commercialPlywood from "@/assets/product-commercial-plywood.jpg.asset.json";
+import waterproofPlywood from "@/assets/product-waterproof-plywood.jpg.asset.json";
+import mdfBoard from "@/assets/product-mdf-board.jpg.asset.json";
+import woodgrainLaminate from "@/assets/product-woodgrain-laminate.jpg.asset.json";
+import glossLaminate from "@/assets/product-gloss-laminate.jpg.asset.json";
+import matteLaminate from "@/assets/product-matte-laminate.jpg.asset.json";
+import softCloseHinge from "@/assets/product-soft-close-hinge.jpg.asset.json";
+import drawerChannel from "@/assets/product-drawer-channel.jpg.asset.json";
+import paintTerracotta from "@/assets/product-paint-terracotta.jpg.asset.json";
+import paintOlive from "@/assets/product-paint-olive.jpg.asset.json";
+import paintSand from "@/assets/product-paint-sand.jpg.asset.json";
+import wallPutty from "@/assets/product-wall-putty.jpg.asset.json";
+import woodAdhesive from "@/assets/product-fevicol-sh.png.asset.json";
+import contactAdhesive from "@/assets/product-fevicol-sr-998.png.asset.json";
+import cabinetHandles from "@/assets/product-cabinet-handles.jpg.asset.json";
+import knobsHooks from "@/assets/product-knobs-hooks.jpg.asset.json";
 
 export type Product = {
   id: string;
@@ -55,8 +65,8 @@ export const products: Product[] = [
       { label: "Grade", value: "MR (moisture resistant)" },
       { label: "Core", value: "Hardwood" },
     ],
-    image: plywood,
-    imageAlt: "Commercial plywood sheet 19 mm thickness",
+    image: commercialPlywood.url,
+    imageAlt: "Representative 3D view of commercial plywood sheets",
     featured: true,
   },
   {
@@ -73,8 +83,8 @@ export const products: Product[] = [
       { label: "Thickness", value: "18 mm" },
       { label: "Grade", value: "BWP" },
     ],
-    image: plywood,
-    imageAlt: "Waterproof plywood board stack",
+    image: waterproofPlywood.url,
+    imageAlt: "Representative 3D view of waterproof plywood sheets",
   },
   {
     id: "p3",
@@ -84,8 +94,8 @@ export const products: Product[] = [
     shortDescription: "Smooth board for panelling and painted finishes.",
     price: "Approx. ₹48 / sq.ft",
     sizes: ["8 x 4 ft"],
-    image: plywood,
-    imageAlt: "MDF board sheet",
+    image: mdfBoard.url,
+    imageAlt: "Representative 3D view of MDF boards",
   },
   {
     id: "p4",
@@ -101,8 +111,8 @@ export const products: Product[] = [
       { label: "Thickness", value: "1 mm" },
       { label: "Finish", value: "Suede / Gloss" },
     ],
-    image: mica,
-    imageAlt: "Wood grain laminate sheet sample",
+    image: woodgrainLaminate.url,
+    imageAlt: "Representative 3D view of wood grain laminate sheets",
     featured: true,
   },
   {
@@ -113,8 +123,8 @@ export const products: Product[] = [
     shortDescription: "Mirror-like finish for modern kitchen shutters.",
     price: "Approx. ₹1,650 / sheet",
     sizes: ["8 x 4 ft"],
-    image: mica,
-    imageAlt: "High gloss laminate sheet sample",
+    image: glossLaminate.url,
+    imageAlt: "Representative 3D view of high gloss laminate sheets",
   },
   {
     id: "p6",
@@ -123,8 +133,8 @@ export const products: Product[] = [
     category: "mica-laminates",
     shortDescription: "Soft matte solid shades in white, beige and charcoal.",
     price: "Approx. ₹1,100 / sheet",
-    image: mica,
-    imageAlt: "Matte solid colour laminate sheet sample",
+    image: matteLaminate.url,
+    imageAlt: "Representative 3D view of matte laminate samples",
   },
   {
     id: "p7",
@@ -139,8 +149,8 @@ export const products: Product[] = [
       { label: "Type", value: "Hydraulic soft close" },
       { label: "Finish", value: "Nickel plated" },
     ],
-    image: hardware,
-    imageAlt: "Soft close cabinet hinge",
+    image: softCloseHinge.url,
+    imageAlt: "Representative 3D view of a soft close cabinet hinge",
     featured: true,
   },
   {
@@ -151,13 +161,13 @@ export const products: Product[] = [
     shortDescription: "Ball bearing channels for smooth drawer movement.",
     price: "Approx. ₹230 / pair",
     sizes: ['12"', '14"', '16"', '18"', '20"'],
-    image: hardware,
-    imageAlt: "Telescopic drawer channel pair",
+    image: drawerChannel.url,
+    imageAlt: "Representative 3D view of telescopic drawer channels",
   },
   {
     id: "p9",
     slug: "interior-emulsion-terracotta",
-    name: "Asian Paints Royale — Terracotta",
+    name: "Interior Emulsion — Terracotta",
     brand: "Asian Paints",
     category: "wall-colors",
     shortDescription: "Warm earthy shade with a soft sheen finish.",
@@ -165,70 +175,72 @@ export const products: Product[] = [
       "Washable interior emulsion. Bring your room measurements and we will estimate the quantity for you.",
     price: "Approx. ₹520 / litre",
     sizes: ["1 L", "4 L", "10 L", "20 L"],
-    image: colors,
-    imageAlt: "Terracotta interior wall paint tin with shade card",
+    image: paintTerracotta.url,
+    imageAlt: "Representative 3D view of interior paint with a terracotta shade card",
     swatch: "#B2603C",
     featured: true,
   },
   {
     id: "p10",
     slug: "interior-emulsion-olive",
-    name: "Asian Paints Royale — Olive",
+    name: "Interior Emulsion — Olive",
     brand: "Asian Paints",
     category: "wall-colors",
     shortDescription: "Deep natural green that pairs well with wood.",
     price: "Approx. ₹540 / litre",
     sizes: ["1 L", "4 L", "10 L"],
-    image: colors,
-    imageAlt: "Olive green interior wall paint",
+    image: paintOlive.url,
+    imageAlt: "Representative 3D view of interior paint with an olive shade card",
     swatch: "#5E6437",
   },
   {
     id: "p11",
     slug: "interior-emulsion-sand",
-    name: "Asian Paints Royale — Sand",
+    name: "Interior Emulsion — Sand",
     brand: "Asian Paints",
     category: "wall-colors",
     shortDescription: "Neutral warm beige for bright, calm rooms.",
     price: "Approx. ₹480 / litre",
     sizes: ["1 L", "4 L", "10 L", "20 L"],
-    image: colors,
-    imageAlt: "Sand beige interior wall paint",
+    image: paintSand.url,
+    imageAlt: "Representative 3D view of interior paint with a sand shade card",
     swatch: "#CBA98A",
   },
   {
     id: "p12",
     slug: "wall-putty",
-    name: "Asian Paints TruCare Wall Putty",
+    name: "Wall Putty",
     brand: "Asian Paints",
     category: "wall-colors",
     shortDescription: "Smooth base coat for a flawless paint finish.",
     price: "Approx. ₹680 / 20 kg",
-    image: colors,
-    imageAlt: "Wall putty bag",
+    image: wallPutty.url,
+    imageAlt: "Representative 3D view of a wall putty bag",
   },
   {
     id: "p13",
     slug: "wood-adhesive",
-    name: "Wood Adhesive (Fevicol type)",
+    name: "Fevicol SH Wood Adhesive",
+    brand: "Fevicol",
     category: "adhesives",
     shortDescription: "Strong white adhesive for joinery and laminate work.",
     description: "Available in small tubs through to large packs for site work.",
     price: "Approx. ₹210 / kg",
     sizes: ["500 g", "1 kg", "5 kg", "20 kg"],
-    image: adhesives,
-    imageAlt: "White wood adhesive tub",
+    image: woodAdhesive.url,
+    imageAlt: "Genuine Fevicol SH wood adhesive container",
     featured: true,
   },
   {
     id: "p14",
     slug: "contact-adhesive",
-    name: "Contact Adhesive",
+    name: "Fevicol SR 998 Contact Adhesive",
+    brand: "Fevicol",
     category: "adhesives",
     shortDescription: "Instant grip adhesive for laminate and sunmica pasting.",
     price: "Approx. ₹340 / litre",
-    image: adhesives,
-    imageAlt: "Contact adhesive container",
+    image: contactAdhesive.url,
+    imageAlt: "Genuine Fevicol SR 998 contact adhesive container",
   },
   {
     id: "p15",
@@ -238,8 +250,8 @@ export const products: Product[] = [
     shortDescription: "Brass, black and steel handles in several lengths.",
     price: "From approx. ₹120 / piece",
     sizes: ['4"', '6"', '8"', '12"'],
-    image: accessories,
-    imageAlt: "Brass and black cabinet handles",
+    image: cabinetHandles.url,
+    imageAlt: "Representative 3D view of cabinet handles",
     featured: true,
   },
   {
@@ -249,8 +261,8 @@ export const products: Product[] = [
     category: "furniture-accessories",
     shortDescription: "Small fittings that finish a wardrobe or kitchen neatly.",
     price: "From approx. ₹40 / piece",
-    image: accessories,
-    imageAlt: "Furniture knobs and hooks",
+    image: knobsHooks.url,
+    imageAlt: "Representative 3D view of furniture knobs and hooks",
   },
 ];
 

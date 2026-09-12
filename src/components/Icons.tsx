@@ -137,6 +137,24 @@ export function ArrowIcon({ className = base }: P) {
   );
 }
 
+export function BackIcon({ className = base }: P) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M19 12H5" />
+      <path d="m11 18-6-6 6-6" />
+    </svg>
+  );
+}
+
 export function StarIcon({ className = base, filled = true }: P & { filled?: boolean }) {
   return (
     <svg

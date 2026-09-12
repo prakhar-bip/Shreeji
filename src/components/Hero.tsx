@@ -1,12 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import heroImage from "@/assets/hero-materials.jpg";
+import shopFrontAsset from "@/assets/shop-front-enhanced.webp.asset.json";
+import shreeLogoAsset from "@/assets/shree-hindi-logo.png.asset.json";
+import asianPaintsLogoAsset from "@/assets/asian-paints-logo.webp.asset.json";
 import { WhatsAppButton } from "@/components/ContactActions";
 import { ArrowIcon } from "@/components/Icons";
 import { business } from "@/data/business";
 import { waMessages } from "@/lib/whatsapp";
 
-const steps = ["Plywood", "Laminate", "Hardware", "Adhesive", "Colour", "Finished interior"];
+const steps = ["Plywood", "Laminate", "Hardware", "Adhesive", "Asian Paints"];
 
 /**
  * Hero with a light parallax effect (transform only, rAF-throttled)
@@ -33,32 +35,32 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-cream pt-6 pb-7 md:pt-16 md:pb-20">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-sand blur-2xl"
-        style={{ transform: `translateY(${offset * 0.12}px)` }}
-      />
+    <section className="relative overflow-hidden bg-cream pt-5 pb-7 md:pt-12 md:pb-16">
       <div className="container-page relative grid gap-6 md:grid-cols-2 md:items-center md:gap-10">
         <div>
-          <p className="eyebrow">{business.tagline}</p>
+          <div className="mb-3 flex items-center gap-3">
+            <img src={shreeLogoAsset.url} alt="श्री — Shree Ji Enterprises" width={1200} height={608} className="h-16 w-40 object-contain object-left md:h-20 md:w-52" />
+            <span className="h-10 w-px bg-border" aria-hidden="true" />
+            <div>
+              <img src={asianPaintsLogoAsset.url} alt="Asian Paints" width={321} height={63} className="h-7 w-28 object-contain object-left md:h-8 md:w-32" />
+              <p className="mt-1 text-[0.65rem] font-bold text-muted-foreground">AVAILABLE HERE</p>
+            </div>
+          </div>
+          <p className="eyebrow">Your local interior materials shop</p>
           <h1 className="mt-2 font-display text-[2rem] leading-[1.08] font-semibold md:mt-3 md:text-6xl">
             {business.name}
           </h1>
           <p className="mt-3 max-w-md text-sm text-muted-foreground md:mt-4 md:text-xl">
-            Plywood, mica, hardware, Asian Paints and adhesive at your nearby shop.
+            Plywood, mica, hardware and genuine Asian Paints products at your nearby shop.
           </p>
 
           <div className="mt-5 grid grid-cols-2 gap-2 sm:flex sm:gap-3 md:mt-7">
-            <Link to="/products" className="btn btn-primary btn-block sm:w-auto sm:px-7">
-              See Products <ArrowIcon className="h-4 w-4" />
+            <Link to="/colors" className="btn btn-primary btn-block sm:w-auto sm:px-7">
+              See Colors <ArrowIcon className="h-4 w-4" />
             </Link>
-            <WhatsAppButton
-              message={waMessages.general}
-              context="hero"
-              block
-              className="sm:w-auto sm:px-7"
-            />
+            <Link to="/materials" className="btn btn-outline btn-block sm:w-auto sm:px-7">
+              See Materials
+            </Link>
           </div>
 
           <ol className="mt-5 hidden flex-wrap items-center gap-x-2 gap-y-2 text-xs font-semibold text-muted-foreground md:flex">
@@ -73,32 +75,32 @@ export function Hero() {
           </ol>
         </div>
 
-        <div className="relative hidden md:block">
+        <div className="relative">
           <div
             className="card-soft relative overflow-hidden rounded-3xl"
             style={{ transform: `translateY(${offset * -0.04}px)` }}
           >
             <img
-              src={heroImage}
-              alt="Plywood, laminate samples, brass handles, hinges, wall paint and adhesive arranged together"
-              width={1200}
-              height={1200}
+              src={shopFrontAsset.url}
+              alt="Front of Shree Ji Enterprises shop with Asian Paints Colourworld signage"
+              width={1376}
+              height={768}
               fetchPriority="high"
               decoding="async"
-              className="aspect-square w-full object-cover"
+              className="aspect-[16/9] w-full object-cover"
             />
           </div>
 
           <div
-            className="float-slow absolute -bottom-4 -left-2 rounded-2xl bg-background/95 px-4 py-3 shadow-lift backdrop-blur-sm md:-left-6"
+            className="float-slow absolute -bottom-3 left-2 rounded-xl bg-background/95 px-3 py-2 shadow-lift backdrop-blur-sm md:-left-6 md:px-4 md:py-3"
             style={{ transform: `translateY(${offset * -0.08}px)` }}
           >
-            <p className="font-display text-lg font-semibold">6 categories</p>
-            <p className="text-xs text-muted-foreground">Everything for one interior job</p>
+            <p className="font-display text-sm font-semibold md:text-lg">Visit our real shop</p>
+            <p className="text-[0.68rem] text-muted-foreground md:text-xs">Garoth Road, near ICICI Bank</p>
           </div>
 
           <div
-            className="float-slower absolute -top-3 -right-1 rounded-2xl bg-ink px-4 py-3 text-primary-foreground shadow-lift md:-right-5"
+            className="float-slower absolute -top-2 right-2 rounded-xl bg-asian-red px-3 py-2 text-asian-foreground shadow-lift md:-right-5 md:px-4 md:py-3"
             style={{ transform: `translateY(${offset * 0.06}px)` }}
           >
             <p className="text-xs font-semibold">Open today</p>

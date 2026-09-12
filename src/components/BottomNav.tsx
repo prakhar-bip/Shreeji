@@ -1,18 +1,18 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactElement } from "react";
-import { HomeIcon, GridIcon, ImageIcon, PinIcon, ChatIcon } from "@/components/Icons";
+import { HomeIcon, GridIcon, ImageIcon, PinIcon } from "@/components/Icons";
 
 const items: {
-  to: "/" | "/products" | "/gallery" | "/location" | "/contact";
+  to: "/" | "/colors" | "/materials" | "/gallery" | "/location";
   label: string;
   Icon: (props: { className?: string }) => ReactElement;
   exact?: boolean;
 }[] = [
   { to: "/", label: "Home", Icon: HomeIcon, exact: true },
-  { to: "/products", label: "Products", Icon: GridIcon },
+  { to: "/colors", label: "Colors", Icon: ImageIcon },
+  { to: "/materials", label: "Materials", Icon: GridIcon },
   { to: "/gallery", label: "Gallery", Icon: ImageIcon },
   { to: "/location", label: "Shop", Icon: PinIcon },
-  { to: "/contact", label: "Contact", Icon: ChatIcon },
 ];
 
 /** Fixed mobile navigation — thumb-friendly, hidden on desktop. */

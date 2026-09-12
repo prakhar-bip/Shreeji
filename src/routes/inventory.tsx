@@ -7,7 +7,7 @@ import { business } from "@/data/business";
 import { track } from "@/lib/analytics";
 
 const title = `Search Inventory | ${business.name}`;
-const description = "Search available plywood, laminates, hardware, wall colors, adhesives and furniture accessories by product, brand or size.";
+const description = "Search available plywood, laminates, hardware, Asian Paints colors, adhesives and furniture accessories by product, brand or size.";
 
 export const Route = createFileRoute("/inventory")({
   head: () => ({ meta: [

@@ -9,39 +9,31 @@ const VisualizerInput = z.object({
   colorHex: z.string().regex(/^#[0-9a-fA-F]{6}$/),
 });
 
+type GatewayImage = { image_url?: { url?: string } };
+type GatewayResponse = {
+  choices?: Array<{ message?: { content?: string | null; images?: GatewayImage[] } }>;
+  message?: string;
+  error?: { message?: string };
+};
+
 const wait = (milliseconds: number) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
-async function requestHuggingFacePreview(apiKey: string, b64Image: string, prompt: string) {
+async function requestPreview(apiKey: string, body: string) {
   let response: Response | undefined;
   for (let attempt = 0; attempt < 3; attempt += 1) {
-    response = await fetch("https://api-inference.huggingface.co/models/timbrooks/instruct-pix2pix", {
+    response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${apiKey}`,
+        "Lovable-API-Key": apiKey,
+        "X-Lovable-AIG-SDK": "fetch",
       },
-      body: JSON.stringify({
-        inputs: b64Image,
-        parameters: { prompt }
-      }),
+      body,
     });
-    
-    // HF returns 503 when the model is loading
-    if (response.ok || (response.status !== 503 && response.status !== 429 && response.status < 500)) return response;
-    
+    if (response.ok || (response.status !== 429 && response.status < 500)) return response;
     if (attempt < 2) {
-      let retryAfter = 5000;
-      if (response.status === 503) {
-        try {
-          const resJson = await response.json();
-          if (resJson.estimated_time) {
-            retryAfter = resJson.estimated_time * 1000;
-          }
-        } catch (e) {
-          // ignore
-        }
-      }
-      await wait(retryAfter);
+      const retryAfter = Number(response.headers.get("Retry-After"));
+      await wait(Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : 800 * 2 ** attempt);
     }
   }
   if (!response) throw new Error("The color preview could not be reached.");
@@ -51,36 +43,40 @@ async function requestHuggingFacePreview(apiKey: string, b64Image: string, promp
 export const visualizeRoomColor = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => VisualizerInput.parse(input))
   .handler(async ({ data }) => {
-    // Read Hugging Face key from environment variables for security
-    const apiKey = process.env["HUGGING_FACE_API_KEY"];
-    
+    const apiKey = process.env["LOVABLE_API_KEY"];
     if (!apiKey) {
-      throw new Error("The Hugging Face API key is missing. Please add HUGGING_FACE_API_KEY to your environment variables.");
+      throw new Error("The color preview is not configured yet.");
     }
-    
-    const prompt = `Repaint only the visible painted wall surfaces in ${data.colorName} (${data.colorHex}). Keep the room layout, people, furniture, ceiling, floor, doors, windows, artwork, lighting, shadows, textures, and camera angle unchanged. Make the paint result photorealistic and preserve natural light. Do not add or remove objects.`;
-    
-    // Extract base64 without the prefix
-    const b64Image = data.imageDataUrl.split(",")[1];
-    
-    const response = await requestHuggingFacePreview(apiKey, b64Image, prompt);
 
+    const response = await requestPreview(apiKey, JSON.stringify({
+        model: "google/gemini-3-pro-image",
+        modalities: ["image", "text"],
+        messages: [
+          {
+            role: "user",
+            content: [
+              {
+                type: "text",
+                text: `Edit this room photo. Repaint only the visible painted wall surfaces in ${data.colorName} (${data.colorHex}). Keep the room layout, people, furniture, ceiling, floor, doors, windows, artwork, lighting, shadows, textures, and camera angle unchanged. Make the paint result photorealistic and preserve natural light. Do not add or remove objects.`,
+              },
+              { type: "image_url", image_url: { url: data.imageDataUrl } },
+            ],
+          },
+        ],
+      }));
+
+    const result = (await response.json()) as GatewayResponse;
     if (!response.ok) {
-      let errorMessage = "The color preview could not be made.";
-      try {
-        const errorJson = await response.json();
-        errorMessage = errorJson.error || errorMessage;
-      } catch (e) {
-        // ignore
-      }
-      throw new Error(`Hugging Face Error: ${errorMessage}`);
+      const message = result.error?.message ?? result.message ?? "The color preview could not be made.";
+      if (response.status === 402) throw new Error(`${message} Please ask the shop owner to add AI credits.`);
+      if (response.status === 403) throw new Error(`${message} The shop owner needs to enable the color preview.`);
+      throw new Error(message);
     }
 
-    // Hugging Face returns the image directly as binary
-    const arrayBuffer = await response.arrayBuffer();
-    const base64Out = Buffer.from(arrayBuffer).toString('base64');
-    const contentType = response.headers.get('content-type') || 'image/jpeg';
-    const imageUrl = `data:${contentType};base64,${base64Out}`;
+    const imageUrl = result.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+    if (!imageUrl) {
+      throw new Error("No preview image was returned. Please try another room photo.");
+    }
 
     return { imageUrl };
   });
