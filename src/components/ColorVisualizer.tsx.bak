@@ -3,7 +3,6 @@ import { useServerFn } from "@tanstack/react-start";
 import { CameraIcon } from "@/components/Icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Maximize, Minimize } from "lucide-react";
 import defaultRoom from "@/assets/room-visualizer-default.jpg";
 import {
   asianPaintsFamilies,
@@ -84,25 +83,8 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
   const [status, setStatus] = useState<"idle" | "preparing" | "working">("idle");
   const [error, setError] = useState<string>();
   const [mounted, setMounted] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setMounted(true);
-    const onFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
-    };
-    document.addEventListener("fullscreenchange", onFullscreenChange);
-    return () => document.removeEventListener("fullscreenchange", onFullscreenChange);
-  }, []);
-
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      containerRef.current?.requestFullscreen().catch((err) => console.error(err));
-    } else {
-      document.exitFullscreen().catch((err) => console.error(err));
-    }
-  };
+  useEffect(() => setMounted(true), []);
 
   const selected = useMemo(
     () => asianPaintsShades.find((shade) => shade.code === (mode === "photo" ? photoShadeCode : wallShadeCodes[activeWall])) ?? asianPaintsShades[0],
@@ -182,16 +164,9 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
             Pick any Asian Paints shade below. Try it instantly in our room, or add a photo of yours.
           </p>
 
-          <div 
-            ref={containerRef}
-            className={`grid gap-5 lg:items-start bg-background ${
-              isFullscreen 
-                ? "p-4 sm:p-6 w-full h-full overflow-y-auto lg:overflow-hidden lg:grid-cols-[minmax(0,1.5fr)_minmax(24rem,1fr)] lg:grid-rows-1" 
-                : "mt-5 lg:grid-cols-[minmax(0,1.3fr)_minmax(20rem,0.7fr)]"
-            }`}
-          >
-            <div className={`min-w-0 flex flex-col gap-3 ${isFullscreen ? "lg:h-full" : ""}`}>
-              <div className="grid min-w-0 grid-cols-2 gap-1 rounded-lg bg-muted p-1" aria-label="Choose room">
+          <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1.3fr)_minmax(20rem,0.7fr)] lg:items-start">
+            <div className="min-w-0">
+              <div className="mb-3 grid min-w-0 grid-cols-2 gap-1 rounded-lg bg-muted p-1" aria-label="Choose room">
                 <Button
                   type="button"
                   variant={mode === "default" ? "default" : "ghost"}
@@ -213,21 +188,11 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
                 </Button>
               </div>
 
-              <div className={`relative isolate overflow-hidden rounded-lg border border-border bg-sand shadow-soft flex flex-col ${isFullscreen ? 'flex-1' : ''}`}>
-                <Button 
-                  type="button"
-                  variant="secondary" 
-                  size="icon" 
-                  className="absolute top-2 left-2 z-10 bg-background/80 backdrop-blur-sm shadow-sm hover:bg-background/90"
-                  onClick={toggleFullscreen}
-                  title="Toggle full screen"
-                >
-                  {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
-                </Button>
+              <div className="relative isolate overflow-hidden rounded-lg border border-border bg-sand shadow-soft">
                 {mode === "default" ? (
                   mounted ? (
                     <Suspense fallback={<img src={defaultRoom} alt="Loading furnished 3D room" width={1200} height={912} className="aspect-[4/3] w-full object-cover" />}>
-                      <Room3D colors={roomColors} selectedWall={activeWall} onSelectWall={setActiveWall} className={`relative w-full overflow-hidden bg-sand touch-none cursor-move rounded-md ${isFullscreen ? 'flex-1 min-h-[50vh]' : 'aspect-[4/3] min-h-[20rem] sm:min-h-[28rem]'}`} />
+                      <Room3D colors={roomColors} selectedWall={activeWall} onSelectWall={setActiveWall} />
                     </Suspense>
                   ) : (
                     <img src={defaultRoom} alt="Furnished room color preview" width={1200} height={912} className="aspect-[4/3] w-full object-cover" />
@@ -262,7 +227,7 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
               </div>
 
               {mode === "default" ? (
-                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4" aria-label="Choose a wall to paint">
+                <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4" aria-label="Choose a wall to paint">
                   {roomWalls.map((wall) => {
                     const shade = asianPaintsShades.find((item) => item.code === wallShadeCodes[wall.id]);
                     return (
@@ -285,7 +250,7 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
                 </div>
               ) : null}
 
-              <div className="grid min-w-0 grid-cols-2 gap-2">
+              <div className="mt-3 grid min-w-0 grid-cols-2 gap-2">
                 <label className="btn btn-outline min-w-0 cursor-pointer px-2 text-center text-xs sm:text-sm">
                   <CameraIcon className="h-4 w-4 shrink-0" />
                   {photo ? "Change photo" : "Add my photo"}
@@ -307,13 +272,13 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
                   {status === "working" ? "Making…" : status === "preparing" ? "Opening…" : "Preview my room"}
                 </Button>
               </div>
-              {error ? <p className="text-sm font-semibold text-destructive">{error}</p> : null}
-              <p className="text-xs text-muted-foreground">
+              {error ? <p className="mt-3 text-sm font-semibold text-destructive">{error}</p> : null}
+              <p className="mt-3 text-xs text-muted-foreground">
                 Screen colors and AI previews are approximate. Check a physical shade card before buying.
               </p>
             </div>
 
-            <div className={`min-w-0 flex flex-col rounded-lg border border-border bg-card p-3 md:p-4 ${isFullscreen ? "lg:h-full lg:overflow-hidden" : ""}`}>
+            <div className="min-w-0 rounded-lg border border-border bg-card p-3 md:p-4">
               <label>
                 <span className="mb-1.5 block text-sm font-bold">
                   {mode === "default" ? `Choose color for ${roomWalls.find((wall) => wall.id === activeWall)?.label.toLowerCase()}` : "Choose color for your photo"}
@@ -352,7 +317,7 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
                 {matches.length.toLocaleString("en-IN")} shades
               </p>
               {matches.length ? (
-                <div className={`mt-3 grid grid-cols-4 gap-2 pr-1 sm:grid-cols-6 lg:grid-cols-4 ${isFullscreen ? "flex-1 overflow-y-auto" : "max-h-[24rem] overflow-y-auto"}`} aria-label="Choose an Asian Paints shade">
+                <div className="mt-3 grid max-h-[24rem] grid-cols-4 gap-2 overflow-y-auto pr-1 sm:grid-cols-6 lg:grid-cols-4" aria-label="Choose an Asian Paints shade">
                   {matches.slice(0, visibleCount).map((shade) => {
                     const active = shade.code === selected?.code;
                     return (
