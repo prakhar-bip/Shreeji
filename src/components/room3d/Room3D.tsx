@@ -126,15 +126,13 @@ export default function Room3D({
   colors,
   selectedWall,
   onSelectWall,
-  className,
 }: {
   colors: RoomWallColors;
   selectedWall: RoomWall;
   onSelectWall: (wall: RoomWall) => void;
-  className?: string;
 }) {
   return (
-    <div className={className || "relative aspect-[4/3] min-h-[20rem] w-full overflow-hidden bg-sand sm:min-h-[28rem] touch-none cursor-move rounded-md"} aria-label="Interactive 3D room color preview">
+    <div className="relative aspect-[4/3] min-h-[20rem] w-full overflow-hidden bg-sand sm:min-h-[28rem] touch-none cursor-move rounded-md" aria-label="Interactive 3D room color preview">
       <Canvas shadows dpr={[1, 1.5]} camera={{ position: [0, 1.65, 0.1], fov: 75, near: 0.1, far: 30 }} gl={{ antialias: true }}>
         <Suspense fallback={null}>
           <RoomScene colors={colors} selectedWall={selectedWall} onSelectWall={onSelectWall} />
