@@ -1,0 +1,1 @@
+ALTER FUNCTION public.get_visitor_analytics() SECURITY INVOKER;
