@@ -217,20 +217,18 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
                 : "mt-5 grid gap-5 lg:grid-cols-[minmax(0,1.3fr)_minmax(20rem,0.7fr)] lg:items-start"
             }`}
           >
-            {/* Top suggestion to rotate mobile screen in portrait */}
+            {/* Compact bottom suggestion to rotate mobile screen in portrait */}
             {showRotateSuggestion && (
-              <div className="absolute top-14 left-3 right-3 sm:left-auto sm:right-3 z-40 flex items-center justify-between gap-2.5 rounded-xl border border-primary/30 bg-background/95 px-3.5 py-2 text-xs shadow-xl backdrop-blur-md animate-in slide-in-from-top-2 text-foreground">
-                <div className="flex items-center gap-2 font-medium">
-                  <Smartphone className="h-4 w-4 text-primary shrink-0 rotate-90 animate-pulse" />
-                  <span>Rotate device to <strong>landscape</strong> for best 3D studio view</span>
-                </div>
+              <div className="absolute bottom-14 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1.5 rounded-full border border-border/80 bg-background/90 px-3 py-1 text-[11px] font-medium shadow-lg backdrop-blur-md text-foreground whitespace-nowrap animate-in fade-in zoom-in-95">
+                <Smartphone className="h-3.5 w-3.5 text-primary shrink-0 rotate-90 animate-pulse" />
+                <span>Rotate for landscape 3D view</span>
                 <button 
                   type="button" 
                   onClick={() => setShowRotateSuggestion(false)}
-                  className="text-muted-foreground hover:text-foreground p-1 rounded-full hover:bg-muted"
+                  className="text-muted-foreground hover:text-foreground p-0.5 ml-1 rounded-full hover:bg-muted"
                   aria-label="Close suggestion"
                 >
-                  <X className="h-3.5 w-3.5" />
+                  <X className="h-3 w-3" />
                 </button>
               </div>
             )}
@@ -277,7 +275,7 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
                   type="button"
                   variant="secondary" 
                   size="icon" 
-                  className="absolute top-3 left-3 z-10 bg-background/85 backdrop-blur-md shadow-md hover:bg-background/95 border border-border/50 rounded-full h-9 w-9"
+                  className="absolute top-3 left-3 z-30 bg-background/90 backdrop-blur-md shadow-md hover:bg-background border border-border/60 rounded-full h-9 w-9"
                   onClick={toggleFullscreen}
                   title={isFullscreen ? "Exit full screen" : "Full screen view"}
                 >
@@ -286,7 +284,7 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
 
                 {/* Selected Wall / Surface Visual Indicator Badge */}
                 {mode === "default" && (
-                  <div className={`absolute ${isFullscreen ? "top-3 left-14 sm:left-16" : "top-3 left-14 sm:left-16"} z-10 flex max-w-[65%] items-center gap-2 rounded-full border border-border/70 bg-background/90 px-3 py-1.5 shadow-md backdrop-blur-md`}>
+                  <div className={`absolute ${isFullscreen ? "top-3 left-14 sm:left-16" : "top-3 left-14 sm:left-16"} z-20 flex max-w-[65%] items-center gap-2 rounded-full border border-border/70 bg-background/90 px-3 py-1.5 shadow-md backdrop-blur-md`}>
                     <span className="relative flex h-2.5 w-2.5 shrink-0">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
