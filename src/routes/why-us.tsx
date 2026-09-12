@@ -40,7 +40,7 @@ function WhyUsPage() {
           />
           <div className="card-soft overflow-hidden">
             <img
-              src={interiorAsset.url}
+              src={interiorAsset}
               alt="Furniture hardware and Asian Paints products stocked inside Shree Ji Enterprises"
               width={1376}
               height={768}

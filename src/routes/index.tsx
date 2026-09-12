@@ -67,15 +67,15 @@ function HomePage() {
           <SectionHeading eyebrow="Shop products" title="Choose colors or materials" />
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             <Link to="/colors" className="overflow-hidden rounded-lg border border-border bg-card">
-              <img src={colorsImage.url} alt="Asian Paints products inside the shop" className="aspect-[16/9] w-full object-cover" />
+              <img src={colorsImage} alt="Asian Paints products inside the shop" className="aspect-[16/9] w-full object-cover" />
               <div className="p-4">
-                <img src={asianPaintsLogo.url} alt="Asian Paints" className="h-6 w-32 object-contain object-left" />
+                <img src={asianPaintsLogo} alt="Asian Paints" className="h-6 w-32 object-contain object-left" />
                 <span className="mt-3 flex items-center justify-between text-xl font-semibold">Colors <ArrowIcon className="h-5 w-5" /></span>
                 <p className="mt-1 text-sm text-muted-foreground">Find shades and see a color in your room</p>
               </div>
             </Link>
             <Link to="/materials" className="overflow-hidden rounded-lg border border-border bg-card">
-              <img src={materialsImage.url} alt="Furniture hardware and other materials inside the shop" className="aspect-[16/9] w-full object-cover" />
+              <img src={materialsImage} alt="Furniture hardware and other materials inside the shop" className="aspect-[16/9] w-full object-cover" />
               <div className="p-4">
                 <span className="flex items-center justify-between text-xl font-semibold">Other Materials <ArrowIcon className="h-5 w-5" /></span>
                 <p className="mt-1 text-sm text-muted-foreground">Plywood, laminates, hardware, Fevicol and accessories</p>

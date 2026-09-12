@@ -24,28 +24,28 @@ export type GalleryItem = {
 export const galleryItems: GalleryItem[] = [
   {
     id: "g1",
-    src: exteriorAsset.url,
+    src: exteriorAsset,
     alt: "Front of Shree Ji Enterprises with Asian Paints Colourworld signage",
     caption: "Shree Ji Enterprises",
     shape: "wide",
   },
   {
     id: "g2",
-    src: paintInteriorAsset.url,
+    src: paintInteriorAsset,
     alt: "Asian Paints enamel tins and furniture hardware stocked inside the shop",
     caption: "Asian Paints & hardware",
     shape: "tall",
   },
   {
     id: "g3",
-    src: hardwareInteriorAsset.url,
+    src: hardwareInteriorAsset,
     alt: "Shelves filled with furniture fittings, hardware and paint products",
     caption: "Hardware stock",
     shape: "wide",
   },
   {
     id: "g4",
-    src: plywoodAsset.url,
+    src: plywoodAsset,
     alt: "Plywood sheets stacked inside Shree Ji Enterprises",
     caption: "Plywood stock",
     shape: "tall",

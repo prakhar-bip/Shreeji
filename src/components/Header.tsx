@@ -17,14 +17,14 @@ export function Header() {
       <div className="container-page flex h-16 items-center gap-4">
         <Link to="/" aria-label="Shree Ji Enterprises home" className="flex min-w-0 items-center gap-3">
           <img
-            src={shreeLogoAsset.url}
+            src={shreeLogoAsset}
             alt="श्री — Shree Ji Enterprises"
             width={1200}
             height={608}
             className="h-11 w-28 object-contain object-left md:h-12 md:w-36"
           />
           <span className="h-8 w-px bg-border" aria-hidden="true" />
-          <img src={asianPaintsLogoAsset.url} alt="Asian Paints" width={321} height={63} className="h-6 w-24 object-contain md:h-7 md:w-28" />
+          <img src={asianPaintsLogoAsset} alt="Asian Paints" width={321} height={63} className="h-6 w-24 object-contain md:h-7 md:w-28" />
         </Link>
 
         <nav className="ml-auto hidden items-center gap-7 md:flex">

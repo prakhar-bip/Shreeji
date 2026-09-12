@@ -39,7 +39,7 @@ function ColorsPage() {
         <div className="container-page grid gap-6 md:grid-cols-[minmax(0,1fr)_22rem] md:items-center">
           <div>
             <img
-              src={asianPaintsLogo.url}
+              src={asianPaintsLogo}
               alt="Asian Paints"
               width={321}
               height={63}
@@ -58,7 +58,7 @@ function ColorsPage() {
             </div>
           </div>
           <img
-            src={colorsImage.url}
+            src={colorsImage}
             alt="Asian Paints products inside Shree Ji Enterprises"
             width={768}
             height={576}

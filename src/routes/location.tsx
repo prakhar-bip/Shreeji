@@ -53,7 +53,7 @@ function LocationPage() {
           </div>
           <div className="card-soft mt-8 overflow-hidden">
             <img
-              src={exteriorAsset.url}
+              src={exteriorAsset}
               alt="Front of Shree Ji Enterprises with Asian Paints Colourworld signage"
               width={1376}
               height={768}

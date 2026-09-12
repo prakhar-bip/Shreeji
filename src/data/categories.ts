@@ -31,7 +31,7 @@ export const categories: Category[] = [
     description: "Commercial and waterproof plywood, MDF, particle board and blockboard.",
     intro:
       "Boards for furniture, wardrobes, kitchens and shuttering work — in the thicknesses and grades carpenters ask for most.",
-    image: plywoodAsset.url,
+    image: plywoodAsset,
     imageAlt: "Stacked plywood sheets showing layered edges",
     section: "materials",
   },
@@ -51,7 +51,7 @@ export const categories: Category[] = [
     description: "Auto hinges, soft-close hinges, channels, locks and fittings.",
     intro:
       "Hinges, drawer channels, locks, tower bolts and fittings for everyday furniture work.",
-    image: hardwareAsset.url,
+    image: hardwareAsset,
     imageAlt: "Cabinet hinges, channels and furniture fittings arranged on a cream surface",
     section: "materials",
   },
@@ -61,7 +61,7 @@ export const categories: Category[] = [
     description: "Genuine Asian Paints interior and exterior paints, primers and putty.",
     intro:
       "Choose from Asian Paints shades and products. We will help estimate how much paint your room needs.",
-    image: colorsAsset.url,
+    image: colorsAsset,
     imageAlt: "Asian Paints products stocked inside Shree Ji Enterprises",
     section: "colors",
   },
@@ -70,7 +70,7 @@ export const categories: Category[] = [
     name: "Fevicol & Adhesives",
     description: "Genuine Fevicol wood and contact adhesives for furniture work.",
     intro: "Fevicol adhesives for laminate pasting, joinery and general interior work.",
-    image: fevicolSh.url,
+    image: fevicolSh,
     imageAlt: "Genuine Fevicol SH adhesive container",
     section: "materials",
   },
