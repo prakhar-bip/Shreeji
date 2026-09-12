@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { business, fullAddress } from "@/data/business";
 import { categories } from "@/data/categories";
 import { PinIcon, ClockIcon, PhoneIcon } from "@/components/Icons";
+import { SELogo } from "./Logo";
 
 export function Footer() {
   return (
@@ -9,12 +10,7 @@ export function Footer() {
       <div className="container-page grid gap-10 py-12 md:grid-cols-3">
         <div>
           <div className="flex items-center gap-2.5">
-            <span
-              aria-hidden="true"
-              className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-orange-50 border-2 border-orange-500 shadow-sm"
-            >
-              <span style={{ fontFamily: "'Yatra One', cursive" }} className="text-lg text-orange-600 mt-0.5">श्री</span>
-            </span>
+            <SELogo className="h-8 w-8 shrink-0" />
             <h2 className="font-display text-xl font-semibold">{business.name}</h2>
           </div>
           <p className="mt-2 max-w-sm text-sm text-muted-foreground">

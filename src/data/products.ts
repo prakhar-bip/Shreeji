@@ -157,8 +157,8 @@ export const products: Product[] = [
   {
     id: "p9",
     slug: "interior-emulsion-terracotta",
-    name: "Interior Emulsion — Terracotta",
-    brand: "Brand on request",
+    name: "Asian Paints Royale — Terracotta",
+    brand: "Asian Paints",
     category: "wall-colors",
     shortDescription: "Warm earthy shade with a soft sheen finish.",
     description:
@@ -173,7 +173,8 @@ export const products: Product[] = [
   {
     id: "p10",
     slug: "interior-emulsion-olive",
-    name: "Interior Emulsion — Olive",
+    name: "Asian Paints Royale — Olive",
+    brand: "Asian Paints",
     category: "wall-colors",
     shortDescription: "Deep natural green that pairs well with wood.",
     price: "Approx. ₹540 / litre",
@@ -185,7 +186,8 @@ export const products: Product[] = [
   {
     id: "p11",
     slug: "interior-emulsion-sand",
-    name: "Interior Emulsion — Sand",
+    name: "Asian Paints Royale — Sand",
+    brand: "Asian Paints",
     category: "wall-colors",
     shortDescription: "Neutral warm beige for bright, calm rooms.",
     price: "Approx. ₹480 / litre",
@@ -197,7 +199,8 @@ export const products: Product[] = [
   {
     id: "p12",
     slug: "wall-putty",
-    name: "Wall Putty",
+    name: "Asian Paints TruCare Wall Putty",
+    brand: "Asian Paints",
     category: "wall-colors",
     shortDescription: "Smooth base coat for a flawless paint finish.",
     price: "Approx. ₹680 / 20 kg",

@@ -8,7 +8,7 @@
 
 export const business = {
   /** Shop display name */
-  name: "Shree Ji Interprices",
+  name: "श्री जी इन्टरप्राईजेस",
   tagline: "फर्नीचर एवं इंटीरियर सामग्री",
 
   /** One-line description used in SEO + hero support text */
@@ -16,7 +16,7 @@ export const business = {
     "Plywood, mica, hardware, paints and adhesives — everything you need for furniture and beautiful interiors, at one local shop.",
 
   /** PLACEHOLDER — replace with the real phone number */
-  phone: "1234567890",
+  phone: "9926418596",
   /** Country code without "+" (91 = India) */
   countryCode: "91",
 

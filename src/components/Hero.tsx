@@ -46,7 +46,7 @@ export function Hero() {
             {business.name}
           </h1>
           <p className="mt-3 max-w-md text-sm text-muted-foreground md:mt-4 md:text-xl">
-            Plywood, mica, hardware, paint and adhesive at your nearby shop.
+            Plywood, mica, hardware, Asian Paints and adhesive at your nearby shop.
           </p>
 
           <div className="mt-5 grid grid-cols-2 gap-2 sm:flex sm:gap-3 md:mt-7">

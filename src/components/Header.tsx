@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { business } from "@/data/business";
 import { WhatsAppButton } from "@/components/ContactActions";
+import { SELogo } from "./Logo";
 
 const nav = [
   { to: "/products", label: "Products" },
@@ -15,12 +16,7 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/90 backdrop-blur-sm">
       <div className="container-page flex h-16 items-center gap-4">
         <Link to="/" className="flex min-w-0 items-center gap-2.5">
-          <span
-            aria-hidden="true"
-            className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-orange-50 border-2 border-orange-500 shadow-sm"
-          >
-            <span style={{ fontFamily: "'Yatra One', cursive" }} className="text-xl text-orange-600 mt-1">श्री</span>
-          </span>
+          <SELogo className="h-10 w-10 shrink-0" />
           <span className="min-w-0">
             <span className="block truncate font-display text-[1.05rem] leading-tight font-semibold">
               {business.name}

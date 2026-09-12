@@ -111,7 +111,7 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
                       className="mb-1.5 block h-10 w-16 rounded-md border border-border"
                       style={{ backgroundColor: color.swatch }}
                     />
-                    {color.name.replace("Interior Emulsion — ", "")}
+                    {color.name.replace("Asian Paints Royale — ", "")}
                   </button>
                 );
               })}
