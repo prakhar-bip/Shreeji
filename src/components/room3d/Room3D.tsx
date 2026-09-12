@@ -131,7 +131,7 @@ export default function Room3D({
   colors: RoomWallColors;
   selectedWall: RoomWall;
   onSelectWall: (wall: RoomWall) => void;
-  className?: string;
+  className?: string | undefined;
 }) {
   return (
     <div className={className || "relative aspect-[4/3] min-h-[20rem] w-full overflow-hidden bg-sand sm:min-h-[28rem] touch-none cursor-move rounded-md"} aria-label="Interactive 3D room color preview">

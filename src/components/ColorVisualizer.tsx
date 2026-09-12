@@ -3,7 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { CameraIcon } from "@/components/Icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Maximize, Minimize } from "lucide-react";
+import { Maximize, Minimize, Palette, ChevronRight } from "lucide-react";
 import defaultRoom from "@/assets/room-visualizer-default.jpg";
 import {
   asianPaintsFamilies,
@@ -85,11 +85,18 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
   const [error, setError] = useState<string>();
   const [mounted, setMounted] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isPickerCollapsed, setIsPickerCollapsed] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
-    const onFullscreenChange = () => setIsFullscreen(!!document.fullscreenElement);
+    const onFullscreenChange = () => {
+      const active = !!document.fullscreenElement;
+      setIsFullscreen(active);
+      if (!active) {
+        setIsPickerCollapsed(false);
+      }
+    };
     document.addEventListener("fullscreenchange", onFullscreenChange);
     return () => document.removeEventListener("fullscreenchange", onFullscreenChange);
   }, []);
@@ -180,8 +187,16 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
             Pick any Asian Paints shade below. Try it instantly in our room, or add a photo of yours.
           </p>
 
-          <div ref={containerRef} className={`transition-colors duration-300 ${isFullscreen ? "fixed inset-0 z-50 bg-background block" : "mt-5 grid gap-5 lg:grid-cols-[minmax(0,1.3fr)_minmax(20rem,0.7fr)] lg:items-start"}`}>
-            <div className={`min-w-0 flex flex-col ${isFullscreen ? "absolute inset-0 z-0" : ""}`}>
+          <div 
+            ref={containerRef} 
+            className={`transition-all duration-300 ${
+              isFullscreen 
+                ? "fixed inset-0 z-50 bg-background overflow-hidden" 
+                : "mt-5 grid gap-5 lg:grid-cols-[minmax(0,1.3fr)_minmax(20rem,0.7fr)] lg:items-start"
+            }`}
+          >
+            {/* 3D Room / Photo Section (Parallel on Left in Window, Fullscreen background in Fullscreen) */}
+            <div className={`min-w-0 flex flex-col ${isFullscreen ? "absolute inset-0 z-0 w-full h-full" : ""}`}>
               <div className={`mb-3 grid min-w-0 grid-cols-2 gap-1 rounded-lg bg-muted p-1 ${isFullscreen ? "hidden" : ""}`} aria-label="Choose room">
                 <Button
                   type="button"
@@ -204,21 +219,53 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
                 </Button>
               </div>
 
-              <div className={`relative isolate overflow-hidden bg-sand shadow-soft ${isFullscreen ? "flex-1 rounded-none border-none" : "rounded-lg border border-border"}`}>
+              <div className={`relative isolate overflow-hidden bg-sand shadow-soft ${isFullscreen ? "w-full h-full rounded-none border-none" : "rounded-lg border border-border"}`}>
+                {/* Fullscreen Toggle Button */}
                 <Button 
                   type="button"
                   variant="secondary" 
                   size="icon" 
-                  className="absolute top-2 left-2 z-10 bg-background/80 backdrop-blur-sm shadow-sm hover:bg-background/90"
+                  className="absolute top-3 left-3 z-10 bg-background/85 backdrop-blur-md shadow-md hover:bg-background/95 border border-border/50 rounded-full h-9 w-9"
                   onClick={toggleFullscreen}
-                  title="Toggle full screen"
+                  title={isFullscreen ? "Exit full screen" : "Full screen view"}
                 >
                   {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
                 </Button>
+
+                {/* Floating button to re-open collapsed Color Picker in Fullscreen */}
+                {isFullscreen && isPickerCollapsed && (
+                  <Button
+                    type="button"
+                    onClick={() => setIsPickerCollapsed(false)}
+                    className="absolute top-3 right-3 z-20 flex items-center gap-2 rounded-full border border-white/20 bg-background/85 backdrop-blur-xl px-4 py-2 text-xs sm:text-sm font-semibold shadow-2xl hover:bg-background/95 transition-all animate-in fade-in zoom-in-95"
+                  >
+                    <Palette className="h-4 w-4 text-primary" />
+                    <span>Choose Colors</span>
+                  </Button>
+                )}
+
+                {/* Active Shade Badge */}
+                <div className={`absolute ${isFullscreen ? "top-3 left-14 sm:left-16" : "right-2 top-11 sm:right-3 sm:top-3"} flex max-w-[64%] items-center gap-2 rounded-full border border-border/60 bg-background/90 px-3 py-1.5 shadow-soft backdrop-blur-md z-10`}>
+                  <span
+                    aria-hidden="true"
+                    className="h-5 w-5 sm:h-6 sm:w-6 shrink-0 rounded-full border border-border/80 shadow-inner"
+                    style={{ backgroundColor: selected?.hex }}
+                  />
+                  <span className="min-w-0">
+                    <strong className="block truncate text-xs font-semibold">{selected?.name}</strong>
+                    <span className="block text-[10px] text-muted-foreground leading-tight">Asian Paints · {selected?.code}</span>
+                  </span>
+                </div>
+
                 {mode === "default" ? (
                   mounted ? (
                     <Suspense fallback={<img src={defaultRoom} alt="Loading furnished 3D room" width={1200} height={912} className="aspect-[4/3] w-full object-cover" />}>
-                      <Room3D colors={roomColors} selectedWall={activeWall} onSelectWall={setActiveWall} className={isFullscreen ? "w-full h-full bg-sand touch-none cursor-move" : undefined} />
+                      <Room3D 
+                        colors={roomColors} 
+                        selectedWall={activeWall} 
+                        onSelectWall={setActiveWall} 
+                        className={isFullscreen ? "w-full h-full bg-sand touch-none cursor-move" : undefined} 
+                      />
                     </Suspense>
                   ) : (
                     <img src={defaultRoom} alt="Furnished room color preview" width={1200} height={912} className="aspect-[4/3] w-full object-cover" />
@@ -239,19 +286,9 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
                     <span className="text-sm font-bold">Add your room photo</span>
                   </button>
                 )}
-                <div className="absolute right-2 top-11 flex max-w-[64%] items-center gap-2 rounded-md border border-border bg-background/95 p-2 shadow-soft backdrop-blur-sm sm:right-3 sm:top-3">
-                  <span
-                    aria-hidden="true"
-                    className="h-10 w-10 shrink-0 rounded-md border border-border"
-                    style={{ backgroundColor: selected?.hex }}
-                  />
-                  <span className="min-w-0">
-                    <strong className="block truncate text-sm">{selected?.name}</strong>
-                    <span className="block text-xs text-muted-foreground">Asian Paints · {selected?.code}</span>
-                  </span>
-                </div>
               </div>
 
+              {/* Standard Wall Selector (When in Window Mode) */}
               {mode === "default" ? (
                 <div className={`mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4 ${isFullscreen ? "hidden" : ""}`} aria-label="Choose a wall to paint">
                   {roomWalls.map((wall) => {
@@ -276,6 +313,7 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
                 </div>
               ) : null}
 
+              {/* Photo Upload & Preview Actions */}
               <div className={`mt-3 grid min-w-0 grid-cols-2 gap-2 ${isFullscreen ? "hidden" : ""}`}>
                 <label className="btn btn-outline min-w-0 cursor-pointer px-2 text-center text-xs sm:text-sm">
                   <CameraIcon className="h-4 w-4 shrink-0" />
@@ -304,36 +342,74 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
               </p>
             </div>
 
-            <div className={`min-w-0 rounded-lg border-border bg-card p-3 md:p-4 ${isFullscreen ? "absolute bottom-4 left-4 right-4 z-10 flex flex-col max-h-[50vh] border bg-background/90 backdrop-blur-lg shadow-2xl overflow-hidden" : "border"}`}>
-              
-              {/* Floating Wall Selector in Fullscreen */}
+            {/* Color Picker & Selector (Floated parallel on the right with Glassmorphism) */}
+            <div 
+              className={`min-w-0 transition-all duration-300 ${
+                isFullscreen 
+                  ? `absolute top-3 right-3 bottom-3 w-80 sm:w-96 max-w-[calc(100vw-1.5rem)] z-20 flex flex-col rounded-2xl border border-white/20 dark:border-white/10 bg-background/85 dark:bg-background/75 backdrop-blur-xl shadow-2xl p-3 sm:p-4 overflow-hidden ${
+                      isPickerCollapsed ? "translate-x-[115%] opacity-0 pointer-events-none" : "translate-x-0 opacity-100"
+                    }`
+                  : "rounded-lg border border-border bg-card/95 backdrop-blur-sm p-3 md:p-4 shadow-soft"
+              }`}
+            >
+              {/* Header row with Title and Collapse Toggle */}
+              <div className="flex items-center justify-between gap-2 mb-2.5 pb-2 border-b border-border/50 shrink-0">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="h-2.5 w-2.5 rounded-full bg-primary animate-pulse shrink-0" />
+                  <span className="text-xs sm:text-sm font-bold truncate">
+                    {mode === "default" 
+                      ? `Color for ${roomWalls.find((wall) => wall.id === activeWall)?.label.toLowerCase()}`
+                      : "Photo Color"
+                    }
+                  </span>
+                </div>
+                {isFullscreen && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setIsPickerCollapsed(true)}
+                    title="Collapse color picker"
+                    className="h-7 w-7 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground shrink-0"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                )}
+              </div>
+
+              {/* Floating Wall Selector in Fullscreen Mode */}
               {isFullscreen && mode === "default" && (
-                <div className="mb-3 flex gap-2 overflow-x-auto pb-2 border-b border-border/50 shrink-0" aria-label="Choose a wall to paint">
+                <div className="mb-2.5 grid grid-cols-2 gap-1.5 shrink-0" aria-label="Choose a wall to paint">
                   {roomWalls.map((wall) => {
                     const shade = asianPaintsShades.find((item) => item.code === wallShadeCodes[wall.id]);
+                    const isActive = activeWall === wall.id;
                     return (
                       <Button
                         key={wall.id}
                         type="button"
-                        variant={activeWall === wall.id ? "default" : "outline"}
+                        variant={isActive ? "default" : "outline"}
                         onClick={() => setActiveWall(wall.id)}
-                        aria-pressed={activeWall === wall.id}
-                        className="h-auto min-h-11 shrink-0 justify-start gap-2 px-2.5 py-2 text-left"
+                        aria-pressed={isActive}
+                        className={`h-auto min-h-9 justify-start gap-2 px-2 py-1.5 text-left rounded-lg transition-all ${
+                          isActive ? "ring-2 ring-primary ring-offset-1 shadow-sm font-bold" : "bg-background/40 hover:bg-background/70 text-muted-foreground"
+                        }`}
                       >
-                        <span className="h-6 w-6 shrink-0 rounded-sm border border-border" style={{ backgroundColor: shade?.hex }} />
-                        <span className="min-w-0">
-                          <span className="block text-xs font-bold">{wall.label}</span>
-                          <span className="block truncate text-[10px] opacity-75">{shade?.name}</span>
+                        <span 
+                          className="h-4 w-4 shrink-0 rounded-full border border-border shadow-inner" 
+                          style={{ backgroundColor: shade?.hex }} 
+                        />
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-[11px] leading-tight truncate">{wall.label}</span>
+                          <span className="block truncate text-[9px] opacity-75">{shade?.name}</span>
                         </span>
                       </Button>
                     );
                   })}
                 </div>
               )}
-              <label>
-                <span className="mb-1.5 block text-sm font-bold">
-                  {mode === "default" ? `Choose color for ${roomWalls.find((wall) => wall.id === activeWall)?.label.toLowerCase()}` : "Choose color for your photo"}
-                </span>
+
+              {/* Search bar */}
+              <div className="shrink-0 mb-2">
                 <Input
                   type="search"
                   value={query}
@@ -341,12 +417,13 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
                     setQuery(event.target.value);
                     setVisibleCount(SHADE_BATCH);
                   }}
-                  placeholder="Search name or shade code"
-                  className="h-11"
+                  placeholder="Search name or shade code..."
+                  className="h-9 text-xs bg-background/50 backdrop-blur-sm border-border/70 rounded-lg"
                 />
-              </label>
+              </div>
 
-              <div className="-mx-3 mt-3 flex gap-2 overflow-x-auto px-3 pb-2 md:-mx-4 md:px-4" aria-label="Color families">
+              {/* Category pill bar */}
+              <div className="flex gap-1.5 overflow-x-auto pb-1.5 shrink-0 no-scrollbar scrollbar-none" aria-label="Color families">
                 {["all", ...asianPaintsFamilies].map((name) => (
                   <Button
                     key={name}
@@ -357,51 +434,64 @@ export function ColorVisualizer({ initialColorSlug }: { initialColorSlug?: strin
                       setFamily(name);
                       setVisibleCount(SHADE_BATCH);
                     }}
-                    className="shrink-0 rounded-full capitalize"
+                    className={`h-6 shrink-0 rounded-full px-2.5 text-[11px] capitalize whitespace-nowrap transition-colors ${
+                      family === name 
+                        ? "shadow-sm" 
+                        : "bg-background/40 hover:bg-background/75 border-border/60"
+                    }`}
                   >
                     {name === "all" ? "All colors" : name.replace("-", " ")}
                   </Button>
                 ))}
               </div>
 
-              <p className="mt-1 text-xs text-muted-foreground">
-                {matches.length.toLocaleString("en-IN")} shades
+              <p className="text-[10px] text-muted-foreground mb-1.5 shrink-0">
+                {matches.length.toLocaleString("en-IN")} shades available
               </p>
+
+              {/* Color swatch grid in single clean scrollable area */}
               {matches.length ? (
-                <div className={`mt-3 ${isFullscreen ? "flex-1 min-h-0 overflow-y-auto pr-1" : "max-h-[24rem] overflow-y-auto pr-1"}`}>
-                <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 lg:grid-cols-4" aria-label="Choose an Asian Paints shade">
-                  {matches.slice(0, visibleCount).map((shade) => {
-                    const active = shade.code === selected?.code;
-                    return (
-                      <button
-                        key={shade.code}
-                        type="button"
-                        onClick={() => chooseShade(shade)}
-                        aria-pressed={active}
-                        title={`${shade.name} ${shade.code}`}
-                        className={`min-w-0 overflow-hidden rounded-md border bg-background text-left transition-shadow ${active ? "border-foreground ring-2 ring-ring ring-offset-1" : "border-border"}`}
-                      >
-                        <span className="block aspect-square w-full" style={{ backgroundColor: shade.hex }} />
-                        <span className="block truncate px-1.5 pt-1 text-[11px] font-bold">{shade.name}</span>
-                        <span className="block px-1.5 pb-1 text-[10px] text-muted-foreground">{shade.code}</span>
-                      </button>
-                    );
-                  })}
-                </div>
+                <div className="flex-1 min-h-0 overflow-y-auto pr-1">
+                  <div className="grid grid-cols-4 gap-1.5 sm:gap-2" aria-label="Choose an Asian Paints shade">
+                    {matches.slice(0, visibleCount).map((shade) => {
+                      const active = shade.code === selected?.code;
+                      return (
+                        <button
+                          key={shade.code}
+                          type="button"
+                          onClick={() => chooseShade(shade)}
+                          aria-pressed={active}
+                          title={`${shade.name} ${shade.code}`}
+                          className={`group min-w-0 overflow-hidden rounded-lg border text-left transition-all hover:scale-[1.02] ${
+                            active 
+                              ? "border-primary bg-background ring-2 ring-primary ring-offset-1 shadow-md" 
+                              : "border-border/60 bg-background/60 hover:bg-background hover:border-border"
+                          }`}
+                        >
+                          <span 
+                            className="block aspect-square w-full rounded-t-sm transition-transform group-hover:brightness-95" 
+                            style={{ backgroundColor: shade.hex }} 
+                          />
+                          <span className="block truncate px-1.5 pt-1 text-[10px] font-bold leading-tight">{shade.name}</span>
+                          <span className="block truncate px-1.5 pb-1 text-[9px] text-muted-foreground">{shade.code}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {visibleCount < matches.length ? (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setVisibleCount((count) => count + SHADE_BATCH)}
+                      className="mt-2.5 mb-1 w-full h-8 text-xs bg-background/50 hover:bg-background rounded-lg border-border/70"
+                    >
+                      Show more colors
+                    </Button>
+                  ) : null}
                 </div>
               ) : (
-                <p className="mt-3 rounded-md bg-muted p-4 text-sm text-muted-foreground">No matching shade found.</p>
+                <p className="mt-3 rounded-md bg-muted/50 p-4 text-xs text-muted-foreground text-center">No matching shade found.</p>
               )}
-              {visibleCount < matches.length ? (
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setVisibleCount((count) => count + SHADE_BATCH)}
-                  className="mt-3 w-full"
-                >
-                  Show more colors
-                </Button>
-              ) : null}
             </div>
           </div>
         </div>
