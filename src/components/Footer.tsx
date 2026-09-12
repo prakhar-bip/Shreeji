@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { Sparkles } from "lucide-react";
 import { business, fullAddress } from "@/data/business";
 import { materialCategories } from "@/data/categories";
 import { PinIcon, ClockIcon, PhoneIcon } from "@/components/Icons";
@@ -63,10 +64,22 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="container-page border-t border-border/70 py-6 pb-28 text-xs text-muted-foreground md:pb-6">
-        © {new Date().getFullYear()} {business.name}. Prices and availability may vary — please
-        contact us for current details.
+      <div className="border-t border-border/70 py-6 text-xs text-muted-foreground">
+        <div className="container-page flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
+          <p>
+            © {new Date().getFullYear()} {business.name}. Prices and availability may vary — please contact us for current details.
+          </p>
+
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-background/95 px-4 py-2 shadow-sm transition-all hover:scale-105 hover:border-primary/50">
+            <Sparkles className="h-4 w-4 text-primary animate-pulse shrink-0" />
+            <span className="text-xs font-medium text-foreground">
+              Created by <strong className="font-bold tracking-wide text-primary text-sm">saarthi.AI</strong>
+            </span>
+          </div>
+        </div>
       </div>
+
+      <div className="h-20 md:hidden" aria-hidden="true" />
     </footer>
   );
 }
