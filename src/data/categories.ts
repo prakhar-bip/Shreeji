@@ -6,11 +6,11 @@
  * same filename) or import a new one and swap the `image` value.
  */
 
-import plywoodAsset from "@/assets/shop-plywood-stock-enhanced.webp.asset.json";
+import plywoodAsset from "@/assets/shop-plywood-stock-enhanced.webp";
 import mica from "@/assets/cat-mica.jpg";
-import hardwareAsset from "@/assets/shop-hardware-interior-enhanced.webp.asset.json";
-import colorsAsset from "@/assets/shop-paint-interior-enhanced.webp.asset.json";
-import fevicolSh from "@/assets/product-fevicol-sh.png.asset.json";
+import hardwareAsset from "@/assets/shop-hardware-interior-enhanced.webp";
+import colorsAsset from "@/assets/shop-paint-interior-enhanced.webp";
+import fevicolSh from "@/assets/product-fevicol-sh.png";
 import accessories from "@/assets/cat-accessories.jpg";
 
 export type Category = {

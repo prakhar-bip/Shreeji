@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { WhatsAppButton } from "@/components/ContactActions";
-import shreeLogoAsset from "@/assets/shree-hindi-logo.png.asset.json";
-import asianPaintsLogoAsset from "@/assets/asian-paints-logo.webp.asset.json";
+import shreeLogoAsset from "@/assets/shree-hindi-logo.png";
+import asianPaintsLogoAsset from "@/assets/asian-paints-logo.webp";
 
 const nav = [
   { to: "/colors", label: "Colors" },

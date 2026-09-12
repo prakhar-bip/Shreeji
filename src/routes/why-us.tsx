@@ -4,7 +4,7 @@ import { WhyUsSection, ReviewsSection, ContactStrip } from "@/components/HomeSec
 import { SectionHeading } from "@/components/SectionHeading";
 import { business } from "@/data/business";
 import { track } from "@/lib/analytics";
-import interiorAsset from "@/assets/shop-hardware-interior-enhanced.webp.asset.json";
+import interiorAsset from "@/assets/shop-hardware-interior-enhanced.webp";
 
 const title = `Why Choose Us | ${business.name}`;
 const description =

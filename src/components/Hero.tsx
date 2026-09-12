@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import shopFrontAsset from "@/assets/shop-front-enhanced.webp.asset.json";
-import shreeLogoAsset from "@/assets/shree-hindi-logo.png.asset.json";
-import asianPaintsLogoAsset from "@/assets/asian-paints-logo.webp.asset.json";
+import shopFrontAsset from "@/assets/shop-front-enhanced.webp";
+import shreeLogoAsset from "@/assets/shree-hindi-logo.png";
+import asianPaintsLogoAsset from "@/assets/asian-paints-logo.webp";
 import { WhatsAppButton } from "@/components/ContactActions";
 import { ArrowIcon } from "@/components/Icons";
 import { business } from "@/data/business";

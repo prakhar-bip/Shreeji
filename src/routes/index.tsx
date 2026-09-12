@@ -17,9 +17,9 @@ import { galleryItems } from "@/data/gallery";
 import { business, fullAddress } from "@/data/business";
 import { track } from "@/lib/analytics";
 import { ArrowIcon } from "@/components/Icons";
-import asianPaintsLogo from "@/assets/asian-paints-logo.webp.asset.json";
-import colorsImage from "@/assets/shop-paint-interior-enhanced.webp.asset.json";
-import materialsImage from "@/assets/shop-hardware-interior-enhanced.webp.asset.json";
+import asianPaintsLogo from "@/assets/asian-paints-logo.webp";
+import colorsImage from "@/assets/shop-paint-interior-enhanced.webp";
+import materialsImage from "@/assets/shop-hardware-interior-enhanced.webp";
 
 const title = `${business.name} — Plywood, Hardware & Asian Paints`;
 const description = business.shortDescription;

@@ -6,7 +6,7 @@ import { DirectionsButton, CallButton, WhatsAppButton } from "@/components/Conta
 import { business, fullAddress } from "@/data/business";
 import { waMessages } from "@/lib/whatsapp";
 import { track } from "@/lib/analytics";
-import exteriorAsset from "@/assets/shop-front-enhanced.webp.asset.json";
+import exteriorAsset from "@/assets/shop-front-enhanced.webp";
 
 const title = `Shop Location & Timings | ${business.name}`;
 const description = `Find us at ${fullAddress}. Open ${business.hours}. Get directions, call, or message us on WhatsApp before you visit.`;

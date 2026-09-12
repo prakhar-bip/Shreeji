@@ -4,9 +4,9 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { RequestSection, ContactStrip } from "@/components/HomeSections";
 import { business } from "@/data/business";
 import { track } from "@/lib/analytics";
-import asianPaintsLogo from "@/assets/asian-paints-logo.webp.asset.json";
-import colorsImage from "@/assets/shop-paint-interior-enhanced.webp.asset.json";
-import materialsImage from "@/assets/shop-hardware-interior-enhanced.webp.asset.json";
+import asianPaintsLogo from "@/assets/asian-paints-logo.webp";
+import colorsImage from "@/assets/shop-paint-interior-enhanced.webp";
+import materialsImage from "@/assets/shop-hardware-interior-enhanced.webp";
 import { ArrowIcon } from "@/components/Icons";
 
 const title = `Products — Plywood, Laminates, Hardware & Paints | ${business.name}`;

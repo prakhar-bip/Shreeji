@@ -7,10 +7,10 @@
  * the caption + alt text.
  */
 
-import exteriorAsset from "@/assets/shop-front-enhanced.webp.asset.json";
-import paintInteriorAsset from "@/assets/shop-paint-interior-enhanced.webp.asset.json";
-import hardwareInteriorAsset from "@/assets/shop-hardware-interior-enhanced.webp.asset.json";
-import plywoodAsset from "@/assets/shop-plywood-stock-enhanced.webp.asset.json";
+import exteriorAsset from "@/assets/shop-front-enhanced.webp";
+import paintInteriorAsset from "@/assets/shop-paint-interior-enhanced.webp";
+import hardwareInteriorAsset from "@/assets/shop-hardware-interior-enhanced.webp";
+import plywoodAsset from "@/assets/shop-plywood-stock-enhanced.webp";
 
 export type GalleryItem = {
   id: string;

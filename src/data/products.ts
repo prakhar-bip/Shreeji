@@ -12,22 +12,22 @@
  * render a colour card instead of relying only on a photo.
  */
 
-import commercialPlywood from "@/assets/product-commercial-plywood.jpg.asset.json";
-import waterproofPlywood from "@/assets/product-waterproof-plywood.jpg.asset.json";
-import mdfBoard from "@/assets/product-mdf-board.jpg.asset.json";
-import woodgrainLaminate from "@/assets/product-woodgrain-laminate.jpg.asset.json";
-import glossLaminate from "@/assets/product-gloss-laminate.jpg.asset.json";
-import matteLaminate from "@/assets/product-matte-laminate.jpg.asset.json";
-import softCloseHinge from "@/assets/product-soft-close-hinge.jpg.asset.json";
-import drawerChannel from "@/assets/product-drawer-channel.jpg.asset.json";
-import paintTerracotta from "@/assets/product-paint-terracotta.jpg.asset.json";
-import paintOlive from "@/assets/product-paint-olive.jpg.asset.json";
-import paintSand from "@/assets/product-paint-sand.jpg.asset.json";
-import wallPutty from "@/assets/product-wall-putty.jpg.asset.json";
-import woodAdhesive from "@/assets/product-fevicol-sh.png.asset.json";
-import contactAdhesive from "@/assets/product-fevicol-sr-998.png.asset.json";
-import cabinetHandles from "@/assets/product-cabinet-handles.jpg.asset.json";
-import knobsHooks from "@/assets/product-knobs-hooks.jpg.asset.json";
+import commercialPlywood from "@/assets/product-commercial-plywood.jpg";
+import waterproofPlywood from "@/assets/product-waterproof-plywood.jpg";
+import mdfBoard from "@/assets/product-mdf-board.jpg";
+import woodgrainLaminate from "@/assets/product-woodgrain-laminate.jpg";
+import glossLaminate from "@/assets/product-gloss-laminate.jpg";
+import matteLaminate from "@/assets/product-matte-laminate.jpg";
+import softCloseHinge from "@/assets/product-soft-close-hinge.jpg";
+import drawerChannel from "@/assets/product-drawer-channel.jpg";
+import paintTerracotta from "@/assets/product-paint-terracotta.jpg";
+import paintOlive from "@/assets/product-paint-olive.jpg";
+import paintSand from "@/assets/product-paint-sand.jpg";
+import wallPutty from "@/assets/product-wall-putty.jpg";
+import woodAdhesive from "@/assets/product-fevicol-sh.png";
+import contactAdhesive from "@/assets/product-fevicol-sr-998.png";
+import cabinetHandles from "@/assets/product-cabinet-handles.jpg";
+import knobsHooks from "@/assets/product-knobs-hooks.jpg";
 
 export type Product = {
   id: string;
